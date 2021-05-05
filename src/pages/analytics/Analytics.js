@@ -13,11 +13,14 @@ import TableContainer from './components/TableContainer/TableContainer';
 import Calendar from '../dashboard/components/calendar/Calendar';
 import HighchartsReact from 'highcharts-react-official'
 
+
+
 import mock from './mock';
 import s from './Analitycs.module.scss';
 import { receiveDataRequest } from '../../actions/analytics';
 
 class Analytics extends Component {
+
     static propTypes = {
         visits: PropTypes.any,
         performance: PropTypes.any,
@@ -27,7 +30,7 @@ class Analytics extends Component {
         isReceiving: PropTypes.bool,
         dispatch: PropTypes.func.isRequired,
     };
-
+    
     static defaultProps = {
         visits: {},
         performance: {},

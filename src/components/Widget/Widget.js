@@ -200,12 +200,12 @@ class Widget extends React.Component {
               : <header className={s.title}>{title}</header>
           )
         }
-        
+          
         {
           !customControls && mainControls && (
             <div className={`${s.widgetControls} widget-controls`}>
               {settings && (
-                <button><i className="la la-cog" /></button>
+                <button>saasas<i className="la la-cog" /></button>
               )}
               {settingsInverse && (
                 <button className={`bg-gray-transparent ${s.inverse}`}><i

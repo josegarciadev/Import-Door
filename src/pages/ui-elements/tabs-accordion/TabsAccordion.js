@@ -152,6 +152,7 @@ class TabsAccordion extends React.Component {
                                   })}>
                     Dropdown
                   </DropdownToggle>
+                  
                   <DropdownMenu>
                     <DropdownItem onClick={() => {
                       this.toggleFirstTabs('tab13');

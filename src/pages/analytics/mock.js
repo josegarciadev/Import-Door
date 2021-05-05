@@ -1,25 +1,25 @@
 export default {
   tasks: [
+    // {
+    //   id: 0,
+    //   type: 'Meeting',
+    //   title: 'Meeting with Andrew Piker',
+    //   time: '9:00',
+    // },
+    // {
+    //   id: 1,
+    //   type: 'Call',
+    //   title: 'Call with HT Company',
+    //   time: '12:00',
+    // },
     {
       id: 0,
-      type: 'Meeting',
-      title: 'Meeting with Andrew Piker',
-      time: '9:00',
-    },
-    {
-      id: 1,
-      type: 'Call',
-      title: 'Call with HT Company',
-      time: '12:00',
-    },
-    {
-      id: 2,
       type: 'Meeting',
       title: 'Meeting with Zoe Alison',
       time: '14:00',
     },
     {
-      id: 3,
+      id: 1,
       type: 'Interview',
       title: 'Interview with HR',
       time: '15:00',

@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import {
+  Button,
   Navbar,
   Nav,
   Dropdown,
   NavItem,
   NavLink,
+  ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -17,14 +19,17 @@ import {
   Input,
   Form,
   FormGroup,
+  UncontrolledDropdown
 } from 'reactstrap';
+
+import classnames from 'classnames';
+
 import cx from 'classnames';
 import { NavbarTypes } from '../../reducers/layout';
 import Notifications from '../Notifications';
 import { logoutUser } from '../../actions/auth';
 import Joyride, { STATUS } from 'react-joyride';
 import { toggleSidebar, openSidebar, closeSidebar, changeActiveSidebarItem } from '../../actions/navigation';
-
 import adminDefault from '../../images/chat/chat2.png';
 import MenuIcon from '../../images/sidebar/Fill/MenuIcon';
 import FlipIcon from '../../images/sidebar/Outline/Flip';
@@ -59,6 +64,7 @@ class Header extends React.Component {
 
     this.state = {
       menuOpen: false,
+      activeFirstTab: 'tab11',
       notificationsOpen: false,
       notificationsTabSelected: 1,
       focus: false,
@@ -159,6 +165,14 @@ class Header extends React.Component {
       menuOpen: !this.state.menuOpen,
     });
   }
+
+  toggleFirstTabs(tab) {
+    if (this.state.activeFirstTab !== tab) {
+      this.setState({
+        activeFirstTab: tab,
+      });
+    }
+  }
   render() {
     const { focus } = this.state;
     const { openUsersList } = this.props;
@@ -170,8 +184,8 @@ class Header extends React.Component {
     const firstUserLetter = user && (user.firstName|| user.email)[0].toUpperCase();
 
     return (
-      <Navbar className={`${s.root} d-print-none ${navbarType === NavbarTypes.FLOATING ? s.navbarFloatingType : ''}`}  style={{zIndex: !openUsersList ? 100 : 0}}>
-        <Joyride
+      <Navbar className={`${s.root} d-print-none  ${navbarType === NavbarTypes.FLOATING ? s.navbarFloatingType : ''}`}  style={{zIndex: !openUsersList ? 100 : 0}}>
+        {/* <Joyride
           callback={this.handleJoyrideCallback}
           continuous={true}
           run={this.state.run}
@@ -227,8 +241,9 @@ class Header extends React.Component {
             },
           }}
         />
-        <Nav>
-          <NavItem>
+         <Nav> 
+          
+           <NavItem>
             <NavLink className={`d-md-down-none ${s.toggleSidebar}`} id="toggleSidebar" onClick={this.toggleSidebar}>
               <span className={s.headerSvgFlipColor}>
                 <MenuIcon  maskId={1001}/>
@@ -249,7 +264,7 @@ class Header extends React.Component {
                 <MenuIcon maskId={999}/>
               </span>
             </NavLink>
-          </NavItem>
+          </NavItem> 
           <NavItem className="d-sm-down-none">
             <NavLink className="px-2">
               <span className={s.headerSvgFlipColor}>
@@ -263,10 +278,10 @@ class Header extends React.Component {
                 <CloseIcon />
               </span>
             </NavLink>
-          </NavItem>
+          </NavItem> 
 
-        </Nav>
-
+         </Nav> 
+ */}
         <Form className={`d-sm-down-none ml-5 ${s.headerSearchInput}`} inline>
           <FormGroup>
             <InputGroup onFocus={this.toggleFocus} onBlur={this.toggleFocus} className={
@@ -280,7 +295,29 @@ class Header extends React.Component {
           </FormGroup>
         </Form>
 
-        <NavLink className={`${s.navbarBrand} d-md-none ${s.headerSvgFlipColor}`}>
+        <UncontrolledDropdown >
+                  <DropdownToggle nav caret
+                                  className={classnames({
+                                    active: this.state.activeFirstTab === 'tab13' ||
+                                    this.state.activeFirstTab === 'tab14'
+                                  })}>
+                    Dropdown
+                  </DropdownToggle>
+                  
+                  <DropdownMenu>
+                    <DropdownItem onClick={() => {
+                      this.toggleFirstTabs('tab13');
+                    }}>@fat
+                    </DropdownItem>
+                    <DropdownItem onClick={() => {
+                      this.toggleFirstTabs('tab14');
+                    }}>@mdo
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+          <Button className={`${s.deleteFilter}`} color="primary">Primary</Button>
+
+        {/* <NavLink className={`${s.navbarBrand} d-md-none ${s.headerSvgFlipColor}`}>
           <i className="fa fa-circle text-primary mr-n-sm" />
           <i className="fa fa-circle text-danger" />
           &nbsp;
@@ -288,9 +325,9 @@ class Header extends React.Component {
           &nbsp;
           <i className="fa fa-circle text-danger mr-n-sm" />
           <i className="fa fa-circle text-primary" />
-        </NavLink>
+        </NavLink> 
 
-        <Nav className="ml-auto">
+         <Nav className="ml-auto">
           <Dropdown nav isOpen={this.state.notificationsOpen} toggle={this.toggleNotifications} id="basic-nav-dropdown" className={`${s.notificationsMenu}`}>
             <DropdownToggle nav caret className={s.headerSvgFlipColor}>
             <span className={`${s.avatar} rounded-circle float-left mr-2`}>
@@ -323,7 +360,7 @@ class Header extends React.Component {
               <DropdownItem onClick={this.doLogout}><span className={s.headerDropdownIcon}><PowerIcon/></span> Log Out</DropdownItem>
             </DropdownMenu>
           </Dropdown>
-        </Nav>
+        </Nav>  */}
       </Navbar>
     );
   }

@@ -40,7 +40,7 @@ export default class TasksContainer extends Component {
     const totalCompleted = tasks.filter(i => i.completed).length;
     return (
       <Widget
-        className="mb-xlg pb-2"
+        className="mb-xlg pb-2 "
         bodyClass="task-container mt"
         title={
           <div>
@@ -51,9 +51,9 @@ export default class TasksContainer extends Component {
       >
         {tasks.map((item, index) =>
           <Task key={item.id} index={index} toggle={this.toggleTaskState} {...item} />)}
-        <Button color="transparent" className="bg-white w-100 text-center text-primary">
+       {/*  <Button color="transparent" className="bg-white w-100 text-center text-primary">
           See All <i className="la la-arrow-down" />
-        </Button>
+        </Button> */}
       </Widget>
     );
   }

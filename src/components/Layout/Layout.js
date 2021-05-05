@@ -124,15 +124,14 @@ class Layout extends React.Component {
           `dashboard-${(localStorage.getItem("sidebarType") === SidebarTypes.TRANSPARENT) ? "light" : localStorage.getItem("dashboardTheme")}`,
           `header-${localStorage.getItem("navbarColor") ? localStorage.getItem("navbarColor").replace('#', '') : 'FFFFFF'}`
         ].join(' ')}
-      >
+      > 
         <Sidebar />
         <div className={s.wrap}>
           <Header />
-          <Helper />
-          
+          {/* <Helper /> */}
           <Hammer onSwipe={this.handleSwipe}>
             <main className={s.content}>
-            <BreadcrumbHistory url={this.props.location.pathname} />
+           {/*  <BreadcrumbHistory url={this.props.location.pathname} /> */}
               <TransitionGroup>
                 <CSSTransition
                   key={this.props.location.key}
