@@ -226,8 +226,10 @@ class Header extends React.Component {
                 </UncontrolledDropdown>
           <Button className={`${s.deleteFilter}`} color="primary">Primary</Button>
           </div>
-            <div className="pr-4">
+          {/*Right del header */}
+            <div className="pr-4 d-flex">
             <Datetime dateFormat="YYYY-MM-D"  defaultValue={new Date()} />
+            {/* <Button onClick={this.doLogout}><span><PowerIcon/></span></Button> */}
               </div>
            
            
