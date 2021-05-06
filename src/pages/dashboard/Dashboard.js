@@ -547,7 +547,7 @@ class Dashboard extends React.Component {
                   {
                     Header: 'NAME',
                     accessor:`name`,
-                    Footer:'hola'
+                    
                   },
                   {
                     Header: 'POSITION',
