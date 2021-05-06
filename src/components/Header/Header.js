@@ -24,6 +24,10 @@ import {
 
 import classnames from 'classnames';
 
+//datetime
+import Datetime from 'react-datetime'; 
+import "react-datetime/css/react-datetime.css";
+
 import cx from 'classnames';
 import { NavbarTypes } from '../../reducers/layout';
 import Notifications from '../Notifications';
@@ -184,7 +188,49 @@ class Header extends React.Component {
     const firstUserLetter = user && (user.firstName|| user.email)[0].toUpperCase();
 
     return (
-      <Navbar className={`${s.root} d-print-none  ${navbarType === NavbarTypes.FLOATING ? s.navbarFloatingType : ''}`}  style={{zIndex: !openUsersList ? 100 : 0}}>
+      <Navbar className={`${s.root} d-print-none   d-flex  justify-content-between ${navbarType === NavbarTypes.FLOATING ? s.navbarFloatingType : ''}`}  style={{zIndex: !openUsersList ? 100 : 0}}>
+ 
+        <div className="d-flex">
+          <Form className={`d-sm-down-none ml-5 ${s.headerSearchInput}`} inline>
+          <FormGroup>
+            <InputGroup onFocus={this.toggleFocus} onBlur={this.toggleFocus} className={
+              cx('input-group-no-border', {'focus' : !!focus})
+            }>
+              <InputGroupAddon addonType="prepend">
+                <span className={`${s.headerSvgFlipColor}`}><SearchIcon /></span>
+              </InputGroupAddon>
+              <Input id="search-input" placeholder="Search Dashboard" className={cx({'focus' : !!focus})} />
+            </InputGroup>
+          </FormGroup>
+        </Form>
+
+        <UncontrolledDropdown >
+                  <DropdownToggle nav caret
+                                  className={classnames({
+                                    active: this.state.activeFirstTab === 'tab13' ||
+                                    this.state.activeFirstTab === 'tab14'
+                                  })}>
+                    Dropdown
+                  </DropdownToggle>
+                  
+                  <DropdownMenu>
+                    <DropdownItem onClick={() => {
+                      this.toggleFirstTabs('tab13');
+                    }}>@fat
+                    </DropdownItem>
+                    <DropdownItem onClick={() => {
+                      this.toggleFirstTabs('tab14');
+                    }}>@mdo
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+          <Button className={`${s.deleteFilter}`} color="primary">Primary</Button>
+          </div>
+            <div className="pr-4">
+            <Datetime dateFormat="YYYY-MM-D"  defaultValue={new Date()} />
+              </div>
+           
+           
         {/* <Joyride
           callback={this.handleJoyrideCallback}
           continuous={true}
@@ -282,41 +328,8 @@ class Header extends React.Component {
 
          </Nav> 
  */}
-        <Form className={`d-sm-down-none ml-5 ${s.headerSearchInput}`} inline>
-          <FormGroup>
-            <InputGroup onFocus={this.toggleFocus} onBlur={this.toggleFocus} className={
-              cx('input-group-no-border', {'focus' : !!focus})
-            }>
-              <InputGroupAddon addonType="prepend">
-                <span className={`${s.headerSvgFlipColor}`}><SearchIcon /></span>
-              </InputGroupAddon>
-              <Input id="search-input" placeholder="Search Dashboard" className={cx({'focus' : !!focus})} />
-            </InputGroup>
-          </FormGroup>
-        </Form>
-
-        <UncontrolledDropdown >
-                  <DropdownToggle nav caret
-                                  className={classnames({
-                                    active: this.state.activeFirstTab === 'tab13' ||
-                                    this.state.activeFirstTab === 'tab14'
-                                  })}>
-                    Dropdown
-                  </DropdownToggle>
-                  
-                  <DropdownMenu>
-                    <DropdownItem onClick={() => {
-                      this.toggleFirstTabs('tab13');
-                    }}>@fat
-                    </DropdownItem>
-                    <DropdownItem onClick={() => {
-                      this.toggleFirstTabs('tab14');
-                    }}>@mdo
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-          <Button className={`${s.deleteFilter}`} color="primary">Primary</Button>
-
+      
+        
         {/* <NavLink className={`${s.navbarBrand} d-md-none ${s.headerSvgFlipColor}`}>
           <i className="fa fa-circle text-primary mr-n-sm" />
           <i className="fa fa-circle text-danger" />

@@ -4,10 +4,13 @@ import {
   Row,
   Col,
   Progress,
+  Button,
   Table,
   Label,
   Input,
 } from 'reactstrap';
+
+
 import Slider from "react-slick";
 import FlotCharts from '../widgets/components/flot-charts/FlotCharts';
 import Widget from '../../components/Widget';
@@ -71,6 +74,7 @@ class Dashboard extends React.Component {
     revenue: [],
    
 };
+
 
   checkTable(id) {
     let arr = [];
@@ -179,15 +183,37 @@ class Dashboard extends React.Component {
       slidesToScroll: 1,
       draggable: false,
     };
+   
+
     return (
       <div className={s.root}>
         
-        <div className={s.result}>
-          <h1>Product: Soccer balls</h1>
-          <p>Total imports:478</p>
-          <p>Total Supplers:20</p>
+        <div className={s.divRow}>
+          <Row>
+            <Col md={12}>
+              <Widget>
+                <Row>
+                  <Col> 
+                  <h1>Product: Soccer balls</h1>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col> 
+                  <small>Total imports: 478</small>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col> 
+                  <small>Total Supplers: 20</small>
+                  </Col>
+                </Row>
+              </Widget>
+          
+            </Col>
+          </Row>
         </div>
-        <div>
+
+        <div className={s.divRow}> 
         <Row >
           <Col xl={3} lg={4} md={6} xs={12}>
             <Widget className={s.ResultCard}>
@@ -347,7 +373,10 @@ class Dashboard extends React.Component {
             </Widget>
           </Col>
         </Row>
-       <Row>
+      </div >
+
+      <div className={s.divRow}>
+      <Row>
          <Col xs="5">
           <Widget
                 title={<h5>Apex <span className='fw-semi-bold'>Column Chart</span></h5>}
@@ -355,7 +384,7 @@ class Dashboard extends React.Component {
             >
               <ApexChart 
                 className="sparkline-chart" 
-                height={220} 
+                height={240} 
                 series={cd.apex.column.series}
                 options={cd.apex.column.options}
                 type={"bar"}
@@ -379,8 +408,11 @@ class Dashboard extends React.Component {
                 <TaskContainer data={mock.tasks}/>
               </Col>
        </Row>
+      </div>
+       
 
-       <Row>
+    <div className={s.divRow}>
+    <Row>
        <Col md={3} xs={6}>
                 <Widget className="widget-sm"
                   title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
@@ -493,48 +525,59 @@ class Dashboard extends React.Component {
                   <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
                 </Widget>
         </Col>
+         
        </Row>
-
-       <Row>
-         <Col>
-         <Widget  collapse close>
-          <ReactTable
-            data={this.state.reactTable}
-            filterable
-            columns={[
-              {
-                Header: 'NAME',
-                accessor: 'name',
-              },
-              {
-                Header: 'POSITION',
-                accessor: 'position',
-              },
-              {
-                Header: 'OFFICE',
-                accessor: 'office',
-              },
-              {
-                Header: 'EXT',
-                accessor: 'ext',
-              },
-              {
-                Header: 'START DATE',
-                accessor: 'startDate',
-              },
-              {
-                Header: 'SALARY',
-                accessor: 'salary',
-              },
-            ]}
-            defaultPageSize={10}
-            className="-striped -highlight"
-          />
-        </Widget>
-         </Col>
-       </Row>
+      </div>
        
-       </div>
+                
+        <div className={s.divRow}>
+          <div className={`text-right pr-3 pb-1`}>
+          <Button className={`${s.buttonTable}`} color="primary">Primary</Button>
+          <Button className={`${s.buttonTable}`} color="info">Info</Button>
+          <Button className={`${s.buttonTable}`} color="success">Success</Button>
+
+          </div>
+         <Row>
+            <Col>
+            <Widget  collapse close>
+              <ReactTable
+                data={this.state.reactTable}
+                filterable
+                columns={[
+                  {
+                    Header: 'NAME',
+                    accessor:`name`,
+                    Footer:'hola'
+                  },
+                  {
+                    Header: 'POSITION',
+                    accessor: 'position',
+                  },
+                  {
+                    Header: 'OFFICE',
+                    accessor: 'office',
+                  },
+                  {
+                    Header: 'EXT',
+                    accessor: 'ext',
+                  },
+                  {
+                    Header: 'START DATE',
+                    accessor: 'startDate',
+                  },
+                  {
+                    Header: 'SALARY',
+                    accessor: 'salary',
+                  },
+                ]}
+                defaultPageSize={10}
+                className="-striped -highlight"
+              />
+            </Widget>
+            </Col>
+          </Row>
+        </div>
+       
         
         
 
