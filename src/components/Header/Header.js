@@ -24,6 +24,7 @@ import {
 
 import classnames from 'classnames';
 
+
 //datetime
 import Datetime from 'react-datetime'; 
 import "react-datetime/css/react-datetime.css";
@@ -46,6 +47,7 @@ import EmailIcon from '../../images/sidebar/Outline/Email';
 import PowerIcon from '../../images/sidebar/Outline/Power';
 
 import s from './Header.module.scss'; // eslint-disable-line css-modules/no-unused-class
+import SelectRange from '../SelectRange/SelectRange';
 
 class Header extends React.Component {
   static propTypes = {
@@ -65,7 +67,7 @@ class Header extends React.Component {
     this.toggleNotifications = this.toggleNotifications.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.doLogout = this.doLogout.bind(this);
-
+    
     this.state = {
       menuOpen: false,
       activeFirstTab: 'tab11',
@@ -189,8 +191,15 @@ class Header extends React.Component {
 
     return (
       <Navbar className={`${s.root} d-print-none   d-flex  justify-content-between ${navbarType === NavbarTypes.FLOATING ? s.navbarFloatingType : ''}`}  style={{zIndex: !openUsersList ? 100 : 0}}>
- 
+        
         <div className="d-flex">
+
+        <NavLink className={`d-md-down-none ${s.toggleSidebar}`} id="toggleSidebar" onClick={this.toggleSidebar}>
+              <span className={s.headerSvgFlipColor}>
+                <MenuIcon  maskId={1001}/>
+              </span>
+        </NavLink>
+
           <Form className={`d-sm-down-none ml-5 ${s.headerSearchInput}`} inline>
           <FormGroup>
             <InputGroup onFocus={this.toggleFocus} onBlur={this.toggleFocus} className={
@@ -202,9 +211,9 @@ class Header extends React.Component {
               <Input id="search-input" placeholder="Search Dashboard" className={cx({'focus' : !!focus})} />
             </InputGroup>
           </FormGroup>
-        </Form>
+        </Form> 
 
-        <UncontrolledDropdown >
+        <UncontrolledDropdown className={`s.dropdown`}>
                   <DropdownToggle nav caret
                                   className={classnames({
                                     active: this.state.activeFirstTab === 'tab13' ||
@@ -223,12 +232,13 @@ class Header extends React.Component {
                     }}>@mdo
                     </DropdownItem>
                   </DropdownMenu>
-                </UncontrolledDropdown>
+        </UncontrolledDropdown>
           <Button className={`${s.deleteFilter}`} color="primary">Primary</Button>
           </div>
           {/*Right del header */}
-            <div className="pr-4 d-flex">
-            <Datetime dateFormat="YYYY-MM-D"  defaultValue={new Date()} />
+            <div className={`mr-5 d-flex ${s.selectRange}`}>
+            {/* <Datetime dateFormat="YYYY-MM-D"  defaultValue={new Date()} /> */}
+            <SelectRange />
             {/* <Button onClick={this.doLogout}><span><PowerIcon/></span></Button> */}
               </div>
            

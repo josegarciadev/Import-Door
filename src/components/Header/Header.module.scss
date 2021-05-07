@@ -252,3 +252,21 @@
     color:$blue;
   }
 }
+@media(max-width: 768) {
+  
+  .headerSearchInput {
+    display:none;
+  }
+  .dropdown{
+    display: none;
+    color: blue;
+  }
+  .deleteFilter{
+    display: none;
+  }
+  .selectRange{display: none;}
+  .toggleSidebar{
+    width: 20%;
+  }
+}
+

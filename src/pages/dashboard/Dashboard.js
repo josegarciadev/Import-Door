@@ -187,11 +187,9 @@ class Dashboard extends React.Component {
 
     return (
       <div className={s.root}>
-        
-        <div className={s.divRow}>
           <Row>
-            <Col md={12}>
-              <Widget>
+            <Col md={12} style={{padding: '5px'}}>
+              <Widget className={s.widget}>
                 <Row>
                   <Col> 
                   <h1>Product: Soccer balls</h1>
@@ -211,12 +209,10 @@ class Dashboard extends React.Component {
           
             </Col>
           </Row>
-        </div>
-
-        <div className={s.divRow}> 
-        <Row >
-          <Col xl={3} lg={4} md={6} xs={12}>
-            <Widget className={s.ResultCard}>
+      
+        <Row className={`pt-0`} noGutters>
+          <Col xl={3} md={6} xs={12} style={{padding: '5px'}} className={`${s.col}`}>
+            <Widget className={s.widget}>
               <div className="clearfix">
                 <Row className="flex-nowrap">
                   <Col xs={3}>
@@ -242,8 +238,8 @@ class Dashboard extends React.Component {
               </div>
             </Widget>
           </Col>
-          <Col xl={3} lg={4} md={6}  xs={12}>
-            <Widget className={s.ResultCard}>
+          <Col xl={3} md={6}  xs={12} style={{padding: '5px'}}>
+            <Widget className={s.widget}>
               <div className="clearfix">
                 <Row className="flex-nowrap">
                   <Col xs="3">
@@ -291,8 +287,8 @@ class Dashboard extends React.Component {
               </div>
             </Widget>
           </Col>
-          <Col xl={3} lg={4}  md={6} xs={12}>
-            <Widget className={s.ResultCard}>
+          <Col xl={3} md={6} xs={12} style={{padding: '5px'}}>
+            <Widget className={s.widget}>
               <div className="clearfix">
                 {/* <Slider {...settings}  className={`${s.hideOverflow} ${s.itemMinWidth}`}> */}
                  {/*  <div>
@@ -345,8 +341,8 @@ class Dashboard extends React.Component {
               </div>
             </Widget>
           </Col>
-          <Col xl={3} lg={4}  md={6} xs={12}>
-            <Widget className={s.ResultCard}>
+          <Col xl={3} md={6} xs={12} style={{padding: '5px'}}>
+            <Widget className={s.widget}>
               <div className="clearfix">
                 <Row className="flex-nowrap">
                   <Col xs={3}>
@@ -373,29 +369,27 @@ class Dashboard extends React.Component {
             </Widget>
           </Col>
         </Row>
-      </div >
-
-      <div className={s.divRow}>
-      <Row>
-         <Col xs="5">
+   
+      <Row noGutters >
+         <Col xl={6} md={12} sm={12} xs={12} style={{padding: '5px'}}>
           <Widget
                 title={<h5>Apex <span className='fw-semi-bold'>Column Chart</span></h5>}
-                close collapse
+                className={s.widget}
             >
               <ApexChart 
                 className="sparkline-chart" 
-                height={240} 
+                height={260} 
                 series={cd.apex.column.series}
                 options={cd.apex.column.options}
                 type={"bar"}
               />
             </Widget>
          </Col>
-         <Col xs={12} xl={3} md={3} >
+         <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
                 <div className="pb-xlg h-100">
                   <Widget
+                    className={` ${s.widget}`}
                     bodyClass="mt"
-                    close
                     className="mb-0 h-100"
                     fetchingData={isReceiving}
                     title={<h5>Revenue Breakdown</h5>}
@@ -404,17 +398,15 @@ class Dashboard extends React.Component {
                   </Widget>
                 </div>
               </Col>
-              <Col xs={12} md={6} xl={4} className={s.taskContainer}>
+              <Col xs={12} md={6} sm={6} xl={3} className={`${s.widget} ${s.taskContainer}`} style={{padding: '5px'}}>
                 <TaskContainer data={mock.tasks}/>
               </Col>
        </Row>
-      </div>
-       
-
-    <div className={s.divRow}>
-    <Row>
-       <Col md={3} xs={6}>
-                <Widget className="widget-sm"
+     
+   
+    <Row noGutters>
+       <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+                <Widget className={`widget-sm ${s.widget}`} 
                   title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
                 >
                   <div className="clearfix fs-mini">
@@ -439,10 +431,15 @@ class Dashboard extends React.Component {
                     <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
                   </div>
                   <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="primary" className="bg-widget-transparent-lighter progress-xs" value={64} />
                 </Widget>
         </Col>
-        <Col md={3} xs={6}>
-                <Widget className="widget-sm"
+        <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+                <Widget className={`widget-sm ${s.widget}`}
                   title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
                 >
                   <div className="clearfix fs-mini">
@@ -467,10 +464,15 @@ class Dashboard extends React.Component {
                     <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
                   </div>
                   <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="primary" className="bg-widget-transparent-lighter progress-xs" value={64} />
                 </Widget>
         </Col>
-        <Col md={3} xs={6}>
-                <Widget className="widget-sm"
+        <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+                <Widget className={`widget-sm ${s.widget}`}
                   title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
                 >
                   <div className="clearfix fs-mini">
@@ -495,10 +497,15 @@ class Dashboard extends React.Component {
                     <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
                   </div>
                   <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="primary" className="bg-widget-transparent-lighter progress-xs" value={64} />
                 </Widget>
         </Col>
-        <Col md={3} xs={6}>
-                <Widget className="widget-sm"
+        <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+                <Widget className={`widget-sm ${s.widget}`}
                   title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
                 >
                   <div className="clearfix fs-mini">
@@ -523,22 +530,32 @@ class Dashboard extends React.Component {
                     <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
                   </div>
                   <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="primary" className="bg-widget-transparent-lighter progress-xs" value={64} />
                 </Widget>
         </Col>
          
        </Row>
-      </div>
+     
        
-                
-        <div className={s.divRow}>
+        
+       
+        <Row>
+          <Col xs={12}>
           <div className={`text-right pr-3 pb-1`}>
           <Button className={`${s.buttonTable}`} color="primary">Primary</Button>
           <Button className={`${s.buttonTable}`} color="info">Info</Button>
           <Button className={`${s.buttonTable}`} color="success">Success</Button>
 
           </div>
+          </Col>
+          
+          </Row>
          <Row>
-            <Col>
+            <Col xs={12}>
             <Widget  collapse close>
               <ReactTable
                 data={this.state.reactTable}
@@ -546,6 +563,13 @@ class Dashboard extends React.Component {
                 columns={[
                   {
                     Header: 'NAME',
+                    /*Cell:({name})=>{
+
+                      return name;
+                      return (
+                      <p><Button color='info'>info</Button> ${accessor`name`}</p>
+                      );
+                    }*/
                     accessor:`name`,
                     
                   },
@@ -576,7 +600,7 @@ class Dashboard extends React.Component {
             </Widget>
             </Col>
           </Row>
-        </div>
+        
        
         
         
