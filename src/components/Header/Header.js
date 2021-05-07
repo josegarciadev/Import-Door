@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import {
   Button,
   Navbar,
+  NavbarBrand,
   Nav,
   Dropdown,
   NavItem,
@@ -23,7 +24,6 @@ import {
 } from 'reactstrap';
 
 import classnames from 'classnames';
-
 
 //datetime
 import Datetime from 'react-datetime'; 
@@ -190,25 +190,29 @@ class Header extends React.Component {
     const firstUserLetter = user && (user.firstName|| user.email)[0].toUpperCase();
 
     return (
-      <Navbar className={`${s.root} d-print-none   d-flex  justify-content-between ${navbarType === NavbarTypes.FLOATING ? s.navbarFloatingType : ''}`}  style={{zIndex: !openUsersList ? 100 : 0}}>
+      <Navbar className={`${s.root} d-print-none g d-flex  justify-content-between ${navbarType === NavbarTypes.FLOATING ? s.navbarFloatingType : ''}`}  style={{zIndex: !openUsersList ? 100 : 0}} expand="md">
+
         
         <div className="d-flex">
+        <NavbarBrand >
+          <NavLink className={` ${s.toggleSidebar}`} id="toggleSidebar" onClick={this.toggleSidebar}>
+                <span className={s.headerSvgFlipColor}>
+                  <MenuIcon  maskId={1001}/>
+                </span>
+          </NavLink>
 
-        <NavLink className={`d-md-down-none ${s.toggleSidebar}`} id="toggleSidebar" onClick={this.toggleSidebar}>
-              <span className={s.headerSvgFlipColor}>
-                <MenuIcon  maskId={1001}/>
-              </span>
-        </NavLink>
+        </NavbarBrand>
+        
 
           <Form className={`d-sm-down-none ml-5 ${s.headerSearchInput}`} inline>
           <FormGroup>
             <InputGroup onFocus={this.toggleFocus} onBlur={this.toggleFocus} className={
-              cx('input-group-no-border', {'focus' : !!focus})
-            }>
+              cx('input-group-no-border', {'focus' : !!focus} ) 
+            } style={{width:'150px'}}>
               <InputGroupAddon addonType="prepend">
                 <span className={`${s.headerSvgFlipColor}`}><SearchIcon /></span>
               </InputGroupAddon>
-              <Input id="search-input" placeholder="Search Dashboard" className={cx({'focus' : !!focus})} />
+              <Input id="search-input" placeholder="Search " className={cx({'focus' : !!focus})} />
             </InputGroup>
           </FormGroup>
         </Form> 

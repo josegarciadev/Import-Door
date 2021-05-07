@@ -13,7 +13,7 @@ export const chartData = {
   apex: {
     column: {
       series: [{
-        data: [21, 22, 10, 28, 16, 21, 13, 30]
+        data: [21, 22, 10, 28, 16,21, 22, 10, 28, 21, 13, 30]
       }],
       options: {
         chart: {
@@ -24,14 +24,18 @@ export const chartData = {
         plotOptions: {
           bar: {
             columnWidth: '45%',
-            distributed: true
+            distributed: true,
+            labels:false
           }
+        },
+        legend: {
+          show: false
         },
         dataLabels: {
           enabled: false,
         },
         xaxis: {
-          categories: ['John', 'Joe', 'Jake', 'Amber', 'Peter', 'Mary', 'David', 'Lily'],
+          categories: ['January', 'February', 'March', 'April','May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
           labels: {
             style: {
               colors: columnColors,
@@ -49,6 +53,7 @@ export const chartData = {
           labels: {
             style: {
               color: axisColor,
+              
             }
           }
         },

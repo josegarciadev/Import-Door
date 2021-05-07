@@ -187,7 +187,7 @@ class Dashboard extends React.Component {
 
     return (
       <div className={s.root}>
-          <Row>
+          <Row noGutters>
             <Col md={12} style={{padding: '5px'}}>
               <Widget className={s.widget}>
                 <Row>
@@ -370,7 +370,7 @@ class Dashboard extends React.Component {
           </Col>
         </Row>
    
-      <Row noGutters >
+      <Row noGutters className={s.rowMargin}>
          <Col xl={6} md={12} sm={12} xs={12} style={{padding: '5px'}}>
           <Widget
                 title={<h5>Apex <span className='fw-semi-bold'>Column Chart</span></h5>}
@@ -385,7 +385,7 @@ class Dashboard extends React.Component {
               />
             </Widget>
          </Col>
-         <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+         <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}} className={s.widget}>
                 <div className="pb-xlg h-100">
                   <Widget
                     className={` ${s.widget}`}
@@ -399,7 +399,7 @@ class Dashboard extends React.Component {
                 </div>
               </Col>
               <Col xs={12} md={6} sm={6} xl={3} className={`${s.widget} ${s.taskContainer}`} style={{padding: '5px'}}>
-                <TaskContainer data={mock.tasks}/>
+                <TaskContainer data={mock.tasks} className={s.widget}/>
               </Col>
        </Row>
      
