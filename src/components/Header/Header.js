@@ -208,11 +208,11 @@ class Header extends React.Component {
           <FormGroup>
             <InputGroup onFocus={this.toggleFocus} onBlur={this.toggleFocus} className={
               cx('input-group-no-border', {'focus' : !!focus} ) 
-            } style={{width:'150px'}}>
+            } style={{width:'250px'}}>
               <InputGroupAddon addonType="prepend">
                 <span className={`${s.headerSvgFlipColor}`}><SearchIcon /></span>
               </InputGroupAddon>
-              <Input id="search-input" placeholder="Search " className={cx({'focus' : !!focus})} />
+              <Input id="search-input" placeholder="Search Dashboard" className={cx({'focus' : !!focus})} />
             </InputGroup>
           </FormGroup>
         </Form> 
@@ -237,7 +237,7 @@ class Header extends React.Component {
                     </DropdownItem>
                   </DropdownMenu>
         </UncontrolledDropdown>
-          <Button className={`${s.deleteFilter}`} color="primary">Primary</Button>
+          <Button className={`${s.deleteFilter}`} color="primary">Clear</Button>
           </div>
           {/*Right del header */}
             <div className={`mr-5 d-flex ${s.selectRange}`}>

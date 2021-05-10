@@ -23,7 +23,7 @@ export const chartData = {
         colors: columnColors,
         plotOptions: {
           bar: {
-            columnWidth: '45%',
+            columnWidth: '70%',
             distributed: true,
             labels:false
           }
@@ -35,7 +35,7 @@ export const chartData = {
           enabled: false,
         },
         xaxis: {
-          categories: ['January', 'February', 'March', 'April','May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          categories: ['Jan', 'Feb', 'Mar', 'Apr','May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           labels: {
             style: {
               colors: columnColors,

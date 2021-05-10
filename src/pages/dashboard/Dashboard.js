@@ -221,7 +221,7 @@ class Dashboard extends React.Component {
                     </span>
                   </Col>
                   <Col xs="9">
-                    <h6 className="m-0">USERS GROWTH </h6>
+                    <h6 className="m-0">SHIPMENTS </h6>
                     <p className="h2 m-0 fw-normal">4,332</p>
                   </Col>
                 </Row>
@@ -254,7 +254,7 @@ class Dashboard extends React.Component {
                         <p className="h2 m-0 fw-normal">12,324</p>
                       </div> */}
                       <div>
-                        <h6 className="m-0">VISITS YESTERDAY</h6>
+                        <h6 className="m-0">GROSS WEIGHT</h6>
                         <p className="h2 m-0 fw-normal">11,885</p>
                       </div>
                     {/* </Slider>  */}
@@ -322,7 +322,7 @@ class Dashboard extends React.Component {
                         </span>
                       </Col>
                       <Col xs={9}>
-                        <h6 className="m-0">PICKED ORDERS</h6>
+                        <h6 className="m-0">SUPPLIER</h6>
                         <p className="h2 m-0 fw-normal">13.8%</p>
                       </Col>
                     </Row>
@@ -351,7 +351,7 @@ class Dashboard extends React.Component {
                     </span>
                   </Col>
                   <Col xs={9}>
-                    <h6 className="m-0">TOTAL PROFIT</h6>
+                    <h6 className="m-0">IMPORTER</h6>
                     <p className="h2 m-0 fw-normal">$7,448</p>
                   </Col>
                 </Row>
@@ -373,7 +373,7 @@ class Dashboard extends React.Component {
       <Row noGutters className={s.rowMargin}>
          <Col xl={6} md={12} sm={12} xs={12} style={{padding: '5px'}}>
           <Widget
-                title={<h5>Apex <span className='fw-semi-bold'>Column Chart</span></h5>}
+                title={<h5>SHIPMENTS <span className='fw-semi-bold'>BY MONTH</span></h5>}
                 className={s.widget}
             >
               <ApexChart 
@@ -392,7 +392,7 @@ class Dashboard extends React.Component {
                     bodyClass="mt"
                     className="mb-0 h-100"
                     fetchingData={isReceiving}
-                    title={<h5>Revenue Breakdown</h5>}
+                    title={<h5>HS CODES </h5>}
                   >
                     <HighchartsReact options={this.donut()} />
                   </Widget>
@@ -407,7 +407,7 @@ class Dashboard extends React.Component {
     <Row noGutters>
        <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
                 <Widget className={`widget-sm ${s.widget}`} 
-                  title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
+                  title={<h6>TOP <span className="fw-semi-bold">PORT LADING </span></h6>}
                 >
                   <div className="clearfix fs-mini">
                     <span className="pull-right m-0 fw-semi-bold">CPU</span>
@@ -440,7 +440,7 @@ class Dashboard extends React.Component {
         </Col>
         <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
                 <Widget className={`widget-sm ${s.widget}`}
-                  title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
+                  title={<h6>TOP<span className="fw-semi-bold"> PORT UNLADING</span></h6>}
                 >
                   <div className="clearfix fs-mini">
                     <span className="pull-right m-0 fw-semi-bold">CPU</span>
@@ -473,7 +473,7 @@ class Dashboard extends React.Component {
         </Col>
         <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
                 <Widget className={`widget-sm ${s.widget}`}
-                  title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
+                  title={<h6>TOP<span className="fw-semi-bold"> SUPPLIER</span></h6>}
                 >
                   <div className="clearfix fs-mini">
                     <span className="pull-right m-0 fw-semi-bold">CPU</span>
@@ -506,7 +506,7 @@ class Dashboard extends React.Component {
         </Col>
         <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
                 <Widget className={`widget-sm ${s.widget}`}
-                  title={<h6>Server <span className="fw-semi-bold">Overview</span></h6>}
+                  title={<h6>TOP <span className="fw-semi-bold">IMPORTER</span></h6>}
                 >
                   <div className="clearfix fs-mini">
                     <span className="pull-right m-0 fw-semi-bold">CPU</span>
@@ -546,9 +546,9 @@ class Dashboard extends React.Component {
         <Row>
           <Col xs={12}>
           <div className={`text-right pr-3 pb-1`}>
-          <Button className={`${s.buttonTable}`} color="primary">Primary</Button>
-          <Button className={`${s.buttonTable}`} color="info">Info</Button>
-          <Button className={`${s.buttonTable}`} color="success">Success</Button>
+          <Button className={`${s.buttonTable}`} color="primary">CSV</Button>
+          <Button className={`${s.buttonTable}`} color="info">EXCEL</Button>
+          <Button className={`${s.buttonTable}`} color="success">PDF</Button>
 
           </div>
           </Col>
@@ -562,7 +562,7 @@ class Dashboard extends React.Component {
                 filterable
                 columns={[
                   {
-                    Header: 'NAME',
+                    Header: 'Arrival Date ',
                     /*Cell:({name})=>{
 
                       return name;
@@ -574,23 +574,27 @@ class Dashboard extends React.Component {
                     
                   },
                   {
-                    Header: 'POSITION',
+                    Header: 'Port of Lading ',
                     accessor: 'position',
                   },
                   {
-                    Header: 'OFFICE',
+                    Header: 'Supplier Name ',
                     accessor: 'office',
                   },
                   {
-                    Header: 'EXT',
+                    Header: 'Description',
                     accessor: 'ext',
                   },
                   {
-                    Header: 'START DATE',
+                    Header: 'Importer Name ',
                     accessor: 'startDate',
                   },
                   {
-                    Header: 'SALARY',
+                    Header: 'Notify Name ',
+                    accessor: 'salary',
+                  },
+                  {
+                    Header: 'Port of Unlading',
                     accessor: 'salary',
                   },
                 ]}
