@@ -1,0 +1,946 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Row,
+  Col,
+  Progress,
+  Button,
+  Table,
+  Label,
+  Input,
+} from 'reactstrap';
+
+
+import Slider from "react-slick";
+import FlotCharts from '../widgets/components/flot-charts/FlotCharts';
+import Widget from '../../components/Widget';
+
+import TaskContainer from '../analytics/components/TaskContainer/TaskContainer';
+import mock from '../analytics/mock';
+// Tabla
+import ReactTable from 'react-table';
+import { reactTableData, reactBootstrapTableData } from '../tables/dynamic/data';
+
+import { connect } from 'react-redux';
+// Charts
+import ApexChart from 'react-apexcharts';
+import {chartData, liveChart, liveChartInterval} from '../charts/mock';
+
+import HighchartsReact from 'highcharts-react-official'
+// fin Charts
+import Calendar from './components/calendar/Calendar';
+import Map from './components/am4chartMap/am4chartMap';
+import Rickshaw from './components/rickshaw/Rickshaw';
+
+import AnimateNumber from 'react-animated-number';
+
+import s from './Dashboard.module.scss';
+
+//Peticion a analytics
+import Analytics from '../analytics/Analytics'
+import { receiveDataRequest } from '../../actions/analytics';
+
+import peopleA1 from '../../images/people/a1.jpg';
+import peopleA2 from '../../images/people/a2.jpg';
+import peopleA5 from '../../images/people/a5.jpg';
+import peopleA4 from '../../images/people/a4.jpg';
+import peopleA6 from '../../images/people/a6.jpg';
+import img18 from '../../images/pictures/18.jpg';
+import img17 from '../../images/pictures/17.jpg';
+
+import { result } from 'lodash-es';
+import { ResultCard } from '../../components/ResultCard/ResultCard';
+
+class Dashboard extends React.Component {
+
+  constructor(props) {
+    
+    super(props);
+    this.state = {
+      graph: null,
+      cd: chartData,
+      checkedArr: [false, false, false],
+      reactTable: reactTableData(),
+      reactBootstrapTable: reactBootstrapTableData(),
+    };
+    this.checkTable = this.checkTable.bind(this);
+  }
+
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    revenue: PropTypes.any,
+};
+  static defaultProps = {
+    revenue: [],
+   
+};
+
+
+  checkTable(id) {
+    let arr = [];
+    if (id === 0) {
+      const val = !this.state.checkedArr[0];
+      for (let i = 0; i < this.state.checkedArr.length; i += 1) {
+        arr[i] = val;
+      }
+    } else {
+      arr = this.state.checkedArr;
+      arr[id] = !arr[id];
+    }
+    if (arr[0]) {
+      let count = 1;
+      for (let i = 1; i < arr.length; i += 1) {
+        if (arr[i]) {
+          count += 1;
+        }
+      }
+      if (count !== arr.length) {
+        arr[0] = !arr[0];
+      }
+    }
+    this.setState({
+      checkedArr: arr,
+    });
+  }
+
+  // Donuts function
+  donut = () => {
+    let series = [
+      {
+        name: 'Revenue',
+        data: this.props.revenue.map(s => {
+          return {
+            name: s.label,
+            y: s.data
+          }
+        })
+      }
+    ];
+    return {
+      chart: {
+        type: 'pie',
+        height: 200,
+        backgroundColor: 'rgba(0,0,0,0)',
+      },
+      credits: {
+        enabled: false
+      },
+      title: false,
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            enabled: false
+          },
+          borderWidth: 0,
+          showInLegend: true,
+          innerSize: 60,
+          size: 130,
+          states: {
+            hover: {
+              halo: {
+                size: 1
+              }
+            }
+          }
+        }
+      },
+      colors: ['#FD5F00', '#005792', '#1A86D0'],
+      legend: {
+        align: 'right',
+        verticalAlign: 'middle',
+        layout: 'vertical',
+        itemStyle: {
+          color: '#788898',
+          fontWeight: 400,
+        },
+        itemHoverStyle: {
+          color: "#cccccc"
+        },
+        itemMarginBottom: 5,
+        symbolRadius: 0
+      },
+      exporting: {
+        enabled: false
+      },
+      series
+    };
+  }
+  componentDidMount() {
+    this.props.dispatch(receiveDataRequest());
+  }
+  render() {
+    const { cd, ld, initEchartsOptions, sparklineData } = this.state;
+    const { visits, isReceiving, performance, server, mainChart } = this.props;
+    let settings = {
+      dots: false,
+      infinite: true,
+      vertical: true,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      adaptiveHeight: true,
+      arrows: false,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      draggable: false,
+    };
+   
+
+    return (
+      <div className={s.root}>
+          <Row noGutters>
+            <Col md={12} style={{padding: '5px'}}>
+              <Widget className={s.widget}>
+                <Row>
+                  <Col> 
+                  <h1>Product: Soccer balls</h1>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col> 
+                  <small>Total imports: 478</small>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col> 
+                  <small>Total Supplers: 20</small>
+                  </Col>
+                </Row>
+              </Widget>
+          
+            </Col>
+          </Row>
+      
+        <Row className={`pt-0`} noGutters>
+          <Col xl={3} md={6} xs={12} style={{padding: '5px'}} className={`${s.col}`}>
+            <Widget className={s.widget}>
+              <div className="clearfix">
+                <Row className="flex-nowrap">
+                  <Col xs={3}>
+                    <span className="widget-icon">
+                      <i className="fi flaticon-like text-primary" />
+                    </span>
+                  </Col>
+                  <Col xs="9">
+                    <h6 className="m-0">SHIPMENTS </h6>
+                    <p className="h2 m-0 fw-normal">4,332</p>
+                  </Col>
+                </Row>
+                <Row className="flex-nowrap">
+                  <Col xs={6}>
+                    <h6 className="m-0">Registrations</h6>
+                    <p className="value5">+830</p>
+                  </Col>
+                  <Col xs="6">
+                    <h6 className="m-0">Bounce Rate</h6>
+                    <p className="value5">4.5%</p>
+                  </Col>
+                </Row>
+              </div>
+            </Widget>
+          </Col>
+          <Col xl={3} md={6}  xs={12} style={{padding: '5px'}}>
+            <Widget className={s.widget}>
+              <div className="clearfix">
+                <Row className="flex-nowrap">
+                  <Col xs="3">
+                    <span className="widget-icon">
+                      <i className="fi flaticon-magic-wand text-danger" />
+                    </span>
+                  </Col>
+                  <Col xs="9">   
+                    {/* <Slider {...settings} className={`${s.hideOverflow} ${s.itemMinWidth}`}> */}
+                     {/*  <div>
+                        <h6 className="m-0">VISITS TODAY</h6>
+                        <p className="h2 m-0 fw-normal">12,324</p>
+                      </div> */}
+                      <div>
+                        <h6 className="m-0">GROSS WEIGHT</h6>
+                        <p className="h2 m-0 fw-normal">11,885</p>
+                      </div>
+                    {/* </Slider>  */}
+                  </Col>
+                </Row>
+                <Row className="flex-nowrap">
+                  <Col xs="6">
+                    <h6 className="m-0">New Visitors</h6>
+                    {/* <Slider {...settings}  className={s.hideOverflow}> */}
+                      {/* <div>
+                        <p className="value5">1,332</p>
+                      </div> */}
+                      <div>
+                        <p className="value5">20.1%</p>
+                      </div>
+                    {/* </Slider> */}
+                  </Col>
+                  <Col xs="6">
+                    <h6 className="m-0">Bounce Rate</h6>
+                 {/*    <Slider {...settings}  className={s.hideOverflow}> */}
+                      {/* <div>
+                        <p className="value5">217</p>
+                      </div> */}
+                      <div>
+                        <p className="value5">2.3%</p>
+                      </div>
+                    {/* </Slider> */}
+                  </Col>
+                </Row>
+              </div>
+            </Widget>
+          </Col>
+          <Col xl={3} md={6} xs={12} style={{padding: '5px'}}>
+            <Widget className={s.widget}>
+              <div className="clearfix">
+                {/* <Slider {...settings}  className={`${s.hideOverflow} ${s.itemMinWidth}`}> */}
+                 {/*  <div>
+                    <Row className="flex-nowrap">
+                      <Col xs={3}>
+                        <span className="widget-icon">
+                          <i className="fi flaticon-notebook-4 text-info" />
+                        </span>
+                      </Col>
+                      <Col xs="9">
+                        <h6 className="m-0">ORDERS</h6>
+                        <p className="h2 m-0 fw-normal">82,765</p>
+                      </Col>
+                    </Row>
+                    <Row className="flex-nowrap">
+                      <Col xs={6}>
+                        <h6 className="m-0">Avg. Time</h6>
+                        <p className="value5">2:56</p>
+                      </Col>
+                      <Col xs={6}>
+                        <h6 className="m-0">Last Week</h6>
+                        <p className="value5">374</p>
+                      </Col>
+                    </Row>
+                  </div> */}
+                  <div>
+                    <Row className="flex-nowrap">
+                      <Col xs={3}>
+                        <span className="widget-icon">
+                          <i className="fi flaticon-shuffle text-info" />
+                        </span>
+                      </Col>
+                      <Col xs={9}>
+                        <h6 className="m-0">SUPPLIER</h6>
+                        <p className="h2 m-0 fw-normal">13.8%</p>
+                      </Col>
+                    </Row>
+                    <Row className="flex-nowrap">
+                      <Col xs={6}>
+                        <h6 className="m-0">Basic</h6>
+                        <p className="value5">3,692</p>
+                      </Col>
+                      <Col xs="6">
+                        <h6 className="m-0">Advanced</h6>
+                        <p className="value5">1,441</p>
+                      </Col>
+                    </Row>
+                  </div>
+                {/* </Slider> */}
+              </div>
+            </Widget>
+          </Col>
+          <Col xl={3} md={6} xs={12} style={{padding: '5px'}}>
+            <Widget className={s.widget}>
+              <div className="clearfix">
+                <Row className="flex-nowrap">
+                  <Col xs={3}>
+                    <span className="widget-icon">
+                      <i className="fi flaticon-diamond text-success" />
+                    </span>
+                  </Col>
+                  <Col xs={9}>
+                    <h6 className="m-0">IMPORTER</h6>
+                    <p className="h2 m-0 fw-normal">$7,448</p>
+                  </Col>
+                </Row>
+                <Row className="flex-nowrap">
+                  <Col xs="6">
+                    <h6 className="m-0">Last Month</h6>
+                    <p className="value5">$83,541</p>
+                  </Col>
+                  <Col xs={6}>
+                    <h6 className="m-0">Last Week</h6>
+                    <p className="value5">$17,926</p>
+                  </Col>
+                </Row>
+              </div>
+            </Widget>
+          </Col>
+        </Row>
+   
+      <Row noGutters className={s.rowMargin}>
+         <Col xl={6} md={12} sm={12} xs={12} style={{padding: '5px'}}>
+          <Widget
+                title={<h5>SHIPMENTS <span className='fw-semi-bold'>BY MONTH</span></h5>}
+                className={s.widget}
+            >
+              <ApexChart 
+                className="sparkline-chart" 
+                height={260} 
+                series={cd.apex.column.series}
+                options={cd.apex.column.options}
+                type={"bar"}
+              />
+            </Widget>
+         </Col>
+         <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}} className={s.widget}>
+                <div className="pb-xlg h-100">
+                  <Widget
+                    className={` ${s.widget}`}
+                    bodyClass="mt"
+                    className="mb-0 h-100"
+                    fetchingData={isReceiving}
+                    title={<h5>HS CODES </h5>}
+                  >
+                    <HighchartsReact options={this.donut()} />
+                  </Widget>
+                </div>
+              </Col>
+              <Col xs={12} md={6} sm={6} xl={3} className={`${s.widget} ${s.taskContainer}`} style={{padding: '5px'}}>
+                <TaskContainer data={mock.tasks} className={s.widget}/>
+              </Col>
+       </Row>
+     
+   
+    <Row noGutters>
+       <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+                <Widget className={`widget-sm ${s.widget}`} 
+                  title={<h6>TOP <span className="fw-semi-bold">PORT LADING </span></h6>}
+                >
+                  <div className="clearfix fs-mini">
+                    <span className="pull-right m-0 fw-semi-bold">CPU</span>
+                    <span className="fs-mini">60% / 37°C / 3.3 Ghz</span>
+                  </div>
+                  <Progress color="bg-widget-transparent-lighter" className="progress-xs" value={60} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Mem</span>
+                    <span className="fs-mini">29% / 4GB (16 GB)</span>
+                  </div>
+                  <Progress color="warning" className="bg-widget-transparent-lighter progress-xs" value={29} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">LAN</span>
+                    <span className="fs-mini">6 Mb/s <i className="fa fa-caret-down" /> &nbsp; 3 Mb/s <i
+                      className="fa fa-caret-up"
+                    /></span>
+                  </div>
+                  <Progress color="danger" className="bg-widget-transparent-lighter progress-xs" value={48} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="primary" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                </Widget>
+        </Col>
+        <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+                <Widget className={`widget-sm ${s.widget}`}
+                  title={<h6>TOP<span className="fw-semi-bold"> PORT UNLADING</span></h6>}
+                >
+                  <div className="clearfix fs-mini">
+                    <span className="pull-right m-0 fw-semi-bold">CPU</span>
+                    <span className="fs-mini">60% / 37°C / 3.3 Ghz</span>
+                  </div>
+                  <Progress color="bg-widget-transparent-lighter" className="progress-xs" value={60} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Mem</span>
+                    <span className="fs-mini">29% / 4GB (16 GB)</span>
+                  </div>
+                  <Progress color="warning" className="bg-widget-transparent-lighter progress-xs" value={29} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">LAN</span>
+                    <span className="fs-mini">6 Mb/s <i className="fa fa-caret-down" /> &nbsp; 3 Mb/s <i
+                      className="fa fa-caret-up"
+                    /></span>
+                  </div>
+                  <Progress color="danger" className="bg-widget-transparent-lighter progress-xs" value={48} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="primary" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                </Widget>
+        </Col>
+        <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+                <Widget className={`widget-sm ${s.widget}`}
+                  title={<h6>TOP<span className="fw-semi-bold"> SUPPLIER</span></h6>}
+                >
+                  <div className="clearfix fs-mini">
+                    <span className="pull-right m-0 fw-semi-bold">CPU</span>
+                    <span className="fs-mini">60% / 37°C / 3.3 Ghz</span>
+                  </div>
+                  <Progress color="bg-widget-transparent-lighter" className="progress-xs" value={60} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Mem</span>
+                    <span className="fs-mini">29% / 4GB (16 GB)</span>
+                  </div>
+                  <Progress color="warning" className="bg-widget-transparent-lighter progress-xs" value={29} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">LAN</span>
+                    <span className="fs-mini">6 Mb/s <i className="fa fa-caret-down" /> &nbsp; 3 Mb/s <i
+                      className="fa fa-caret-up"
+                    /></span>
+                  </div>
+                  <Progress color="danger" className="bg-widget-transparent-lighter progress-xs" value={48} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="primary" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                </Widget>
+        </Col>
+        <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>
+                <Widget className={`widget-sm ${s.widget}`}
+                  title={<h6>TOP <span className="fw-semi-bold">IMPORTER</span></h6>}
+                >
+                  <div className="clearfix fs-mini">
+                    <span className="pull-right m-0 fw-semi-bold">CPU</span>
+                    <span className="fs-mini">60% / 37°C / 3.3 Ghz</span>
+                  </div>
+                  <Progress color="bg-widget-transparent-lighter" className="progress-xs" value={60} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Mem</span>
+                    <span className="fs-mini">29% / 4GB (16 GB)</span>
+                  </div>
+                  <Progress color="warning" className="bg-widget-transparent-lighter progress-xs" value={29} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">LAN</span>
+                    <span className="fs-mini">6 Mb/s <i className="fa fa-caret-down" /> &nbsp; 3 Mb/s <i
+                      className="fa fa-caret-up"
+                    /></span>
+                  </div>
+                  <Progress color="danger" className="bg-widget-transparent-lighter progress-xs" value={48} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="success" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                  <div className="clearfix fs-mini mt">
+                    <span className="pull-right m-0 fw-semi-bold">Access</span>
+                    <span className="fs-mini">17 Mb/s <i className="fa fa-caret-up" /> &nbsp; (+18%)</span>
+                  </div>
+                  <Progress color="primary" className="bg-widget-transparent-lighter progress-xs" value={64} />
+                </Widget>
+        </Col>
+         
+       </Row>
+     
+       
+        
+       
+        <Row>
+          <Col xs={12}>
+          <div className={`text-right pr-3 pb-1`}>
+          <Button className={`${s.buttonTable}`} color="primary">CSV</Button>
+          <Button className={`${s.buttonTable}`} color="info">EXCEL</Button>
+          <Button className={`${s.buttonTable}`} color="success">PDF</Button>
+
+          </div>
+          </Col>
+          
+          </Row>
+         <Row>
+            <Col xs={12}>
+            <Widget  collapse close>
+              <ReactTable
+                data={this.state.reactTable}
+                filterable
+                columns={[
+                  {
+                    Header: 'Arrival Date ',
+                    /*Cell:({name})=>{
+
+                      return name;
+                      return (
+                      <p><Button color='info'>info</Button> ${accessor`name`}</p>
+                      );
+                    }*/
+                    accessor:`name`,
+                    
+                  },
+                  {
+                    Header: 'Port of Lading ',
+                    accessor: 'position',
+                  },
+                  {
+                    Header: 'Supplier Name ',
+                    accessor: 'office',
+                  },
+                  {
+                    Header: 'Description',
+                    accessor: 'ext',
+                  },
+                  {
+                    Header: 'Importer Name ',
+                    accessor: 'startDate',
+                  },
+                  {
+                    Header: 'Notify Name ',
+                    accessor: 'salary',
+                  },
+                  {
+                    Header: 'Port of Unlading',
+                    accessor: 'salary',
+                  },
+                ]}
+                defaultPageSize={10}
+                className="-striped -highlight"
+              />
+            </Widget>
+            </Col>
+          </Row>
+        
+       
+        
+        
+
+        {/* <h1 className="page-title">Dashboard &nbsp;
+          <small>
+            <small>The Lucky One</small>
+          </small>
+        </h1>
+
+        <Row>
+          <Col lg={7}>
+            <Widget className="bg-transparent">
+              <Map />
+            </Widget>
+          </Col>
+          <Col lg={1} />
+
+          <Col lg={4}>
+            <Widget
+              className="bg-transparent"
+              title={<h5> Map
+                      <span className="fw-semi-bold">&nbsp;Statistics</span></h5>} settings refresh close
+            >
+              <p>Status: <strong>Live</strong></p>
+              <p>
+                <span className="circle bg-primary text-white"><i className="fa fa-map-marker" /></span> &nbsp;
+                146 Countries, 2759 Cities
+              </p>
+              <div className="row progress-stats">
+                <div className="col-md-9 col-12">
+                  <h6 className="name">Foreign Visits</h6>
+                  <p className="description deemphasize mb-xs">Some Cool Text</p>
+                  <Progress color="primary" value="60" className="bg-white progress-xs mb-4" />
+                </div>
+                <div className="col-md-3 col-12 text-center">
+                  <span className="status rounded rounded-lg bg-body-light">
+                    <small><AnimateNumber value={75} />%</small>
+                  </span>
+                </div>
+              </div>
+              <div className="row progress-stats">
+                <div className="col-md-9 col-12">
+                  <h6 className="name">Local Visits</h6>
+                  <p className="description deemphasize mb-xs">P. to C. Conversion</p>
+                  <Progress color="danger" value="39" className="bg-white progress-xs mb-4" />
+                </div>
+                <div className="col-md-3 col-12 text-center">
+                  <span className="status rounded rounded-lg bg-body-light">
+                    <small><AnimateNumber value={84} />%</small>
+                  </span>
+                </div>
+              </div>
+              <div className="row progress-stats">
+                <div className="col-md-9 col-12">
+                  <h6 className="name">Sound Frequencies</h6>
+                  <p className="description deemphasize mb-xs">Average Bitrate</p>
+                  <Progress color="success" value="80" className="bg-white progress-xs mb-4" />
+                </div>
+                <div className="col-md-3 col-12 text-center">
+                  <span className="status rounded rounded-lg bg-body-light">
+                    <small><AnimateNumber value={92} />%</small>
+                  </span>
+                </div>
+              </div>
+              <h6 className="fw-semi-bold mt">Map Distributions</h6>
+              <p>Tracking: <strong>Active</strong></p>
+              <p>
+                <span className="circle bg-primary text-white"><i className="fa fa-cog" /></span>
+                &nbsp; 391 elements installed, 84 sets
+              </p>
+              <div className="input-group mt">
+                <input type="text" className="form-control" placeholder="Search Map" />
+                <span className="input-group-btn">
+                  <button type="submit" className="btn btn-default">
+                    <i className="fa fa-search text-gray" />
+                  </button>
+                </span>
+              </div>
+
+            </Widget>
+          </Col>
+
+        </Row>
+
+        <Row>
+          <Col lg={4} xs={12}>
+            <Widget
+              title={<h6> USERBASE GROWTH </h6>}
+              close settings
+            >
+              <div className="stats-row">
+                <div className="stat-item">
+                  <h6 className="name">Overall Growth</h6>
+                  <p className="value">76.38%</p>
+                </div>
+                <div className="stat-item">
+                  <h6 className="name">Montly</h6>
+                  <p className="value">10.38%</p>
+                </div>
+                <div className="stat-item">
+                  <h6 className="name">24h</h6>
+                  <p className="value">3.38%</p>
+                </div>
+              </div>
+              <Progress color="success" value="60" className="bg-gray-lighter progress-xs" />
+              <p>
+                <small>
+                  <span className="circle bg-primary text-white">
+                    <i className="fa fa-chevron-up" />
+                  </span>
+                </small>
+                <span className="fw-semi-bold">&nbsp;17% higher</span>
+                &nbsp;than last month
+              </p>
+            </Widget>
+          </Col>
+          <Col lg={4} xs={12}>
+            <Widget
+              title={<h6> TRAFFIC VALUES </h6>}
+              close settings
+            >
+              <div className="stats-row">
+                <div className="stat-item">
+                  <h6 className="name">Overall Values</h6>
+                  <p className="value">17 567 318</p>
+                </div>
+                <div className="stat-item">
+                  <h6 className="name">Montly</h6>
+                  <p className="value">55 120</p>
+                </div>
+                <div className="stat-item">
+                  <h6 className="name">24h</h6>
+                  <p className="value">9 695</p>
+                </div>
+              </div>
+              <Progress color="danger" value="60" className="bg-gray-lighter progress-xs" />
+              <p>
+                <small><span className="circle bg-primary text-white"><i className="fa fa-chevron-down" /></span></small>
+                <span className="fw-semi-bold">&nbsp;8% lower</span>
+                &nbsp;than last month
+              </p>
+            </Widget>
+          </Col>
+          <Col lg={4} xs={12}>
+            <Widget
+              title={<h6> RANDOM VALUES </h6>}
+              close settings
+            >
+              <div className="stats-row">
+                <div className="stat-item">
+                  <h6 className="name fs-sm">Overcome T.</h6>
+                  <p className="value">104.85%</p>
+                </div>
+                <div className="stat-item">
+                  <h6 className="name fs-sm">Takeoff Angle</h6>
+                  <p className="value">14.29&deg;</p>
+                </div>
+                <div className="stat-item">
+                  <h6 className="name fs-sm">World Pop.</h6>
+                  <p className="value">7,211M</p>
+                </div>
+              </div>
+              <Progress color="bg-primary" value="60" className="bg-gray-lighter progress-xs" />
+              <p>
+                <small><span className="circle bg-primary text-white"><i className="fa fa-plus" /></span></small>
+                <span className="fw-semi-bold">&nbsp;8 734 higher</span>
+                &nbsp;than last month
+              </p>
+            </Widget>
+          </Col>
+
+        </Row>
+
+        <Row>
+          <Col lg={4} xs={12}>
+            <Widget
+              title={<h6><span className="badge badge-danger">New</span> Messages</h6>}
+              refresh close
+            >
+              <div className="widget-body undo_padding">
+                <div className="list-group list-group-lg">
+                  <button className="list-group-item text-left">
+                    <span className="thumb-sm float-left mr">
+                      <img className="rounded-circle" src={peopleA2} alt="..." />
+                      <i className="status status-bottom bg-success" />
+                    </span>
+                    <div>
+                      <h6 className="m-0">Chris Gray</h6>
+                      <p className="help-block text-ellipsis m-0">Hey! What&apos;s up? So many times since we</p>
+                    </div>
+                  </button>
+                  <button className="list-group-item text-left">
+                    <span className="thumb-sm float-left mr">
+                      <img className="rounded-circle" src={peopleA4} alt="..." />
+                      <i className="status status-bottom bg-success" />
+                    </span>
+                    <div>
+                      <h6 className="m-0">Jamey Brownlow</h6>
+                      <p className="help-block text-ellipsis m-0">Good news coming tonight. Seems they agreed to
+                        proceed</p>
+                    </div>
+                  </button>
+                  <button className="list-group-item text-left">
+                    <span className="thumb-sm float-left mr">
+                      <img className="rounded-circle" src={peopleA1} alt="..." />
+                      <i className="status status-bottom bg-warning" />
+                    </span>
+                    <div>
+                      <h6 className="m-0">Livia Walsh</h6>
+                      <p className="help-block text-ellipsis m-0">Check my latest email plz!</p>
+                    </div>
+                  </button>
+                  <button className="list-group-item text-left">
+                    <span className="thumb-sm float-left mr">
+                      <img className="rounded-circle" src={peopleA5} alt="..." />
+                      <i className="status status-bottom bg-danger" />
+                    </span>
+                    <div>
+                      <h6 className="m-0">Jaron Fitzroy</h6>
+                      <p className="help-block text-ellipsis m-0">What about summer break?</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <footer className="bg-body-light mt">
+                <input type="search" className="form-control form-control-sm" placeholder="Search" />
+              </footer>
+
+            </Widget>
+          </Col>
+
+          <Col lg={4} xs={12}>
+            <Widget
+              title={<h6> Market <span className="fw-semi-bold">Stats</span></h6>} close
+            >
+
+              <div className="widget-body">
+                <h3>$720 Earned</h3>
+                <p className="fs-mini text-muted mb mt-sm">
+                  Target <span className="fw-semi-bold">$820</span> day earnings
+                  is <span className="fw-semi-bold">96%</span> reached.
+                </p>
+              </div>
+              <div className={`widget-table-overflow ${s.table}`}>
+                <Table striped size="sm">
+                  <thead className="no-bd">
+                    <tr>
+                      <th>
+                        <div className="checkbox abc-checkbox">
+                          <Input
+                            className="mt-0"
+                            id="checkbox210" type="checkbox" onClick={() => this.checkTable(0)}
+                            checked={this.state.checkedArr[0]}
+                            readOnly
+                          />{' '}
+                          <Label for="checkbox210" />
+                        </div>
+                      </th>
+                      <th>&nbsp;</th>
+                      <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div className="checkbox abc-checkbox">
+                          <Input
+                            className="mt-0"
+                            id="checkbox212" type="checkbox" onClick={() => this.checkTable(1)}
+                            checked={this.state.checkedArr[1]}
+                            readOnly
+                          />{' '}
+                          <Label for="checkbox212" />
+                        </div>
+                      </td>
+                      <td>HP Core i7</td>
+                      <td className="text-align-right fw-semi-bold">$346.1</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div className="checkbox abc-checkbox">
+                          <Input
+                            className="mt-0"
+                            id="checkbox214" onClick={() => this.checkTable(2)} type="checkbox"
+                            checked={this.state.checkedArr[2]}
+                            readOnly
+                          />{' '}
+                          <Label for="checkbox214" />
+                        </div>
+                      </td>
+                      <td>Air Pro</td>
+                      <td className="text-align-right fw-semi-bold">$533.1</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+
+              <div className="widget-body mt-xlg chart-overflow-bottom" style={{ height: '100px' }}>
+                <Rickshaw height={100} />
+              </div>
+
+            </Widget>
+          </Col>
+
+          <Col lg={4} xs={12}>
+            <Widget title={<h6>Calendar</h6>} settings close bodyClass={"pt-2 px-0 py-0"}>
+              <Calendar />
+              <div className="list-group fs-mini">
+                <button className="list-group-item text-ellipsis">
+                  <span className="badge badge-pill badge-info float-right">6:45</span>
+                  Weed out the flower bed
+                </button>
+                <button className="list-group-item text-ellipsis">
+                  <span className="badge badge-pill badge-success float-right">9:41</span>
+                  Stop world water pollution
+                </button>
+              </div>
+            </Widget>
+          </Col>
+
+        </Row> */}
+
+      </div>
+    );
+  }
+}
+function mapStateToProps(state) {
+  return {
+      visits: state.analytics.visits,
+      isReceiving: state.analytics.isReceiving,
+      performance: state.analytics.performance,
+      revenue: state.analytics.revenue,
+      server: state.analytics.server,
+      mainChart: state.analytics.mainChart,
+  }
+}
+export default connect(mapStateToProps)(Dashboard);
+//export default (Analytics);

@@ -1,0 +1,83 @@
+@import '../../styles/app';
+
+.root {
+  :global {
+    .post-comments footer {
+      margin: 0 (-$widget-padding-horizontal) (-$widget-padding-vertical);
+      padding: $widget-padding-vertical $widget-padding-horizontal;
+    }
+
+    .stat-item .name {
+      margin-top: 10px;
+    }
+  }
+  
+}
+
+.table {
+  :global(.table.table-sm) {
+    td {
+      font-size: 1rem;
+      vertical-align: middle;
+    }
+  }
+}
+.rowMargin{
+  margin-bottom: -40px;
+}
+.widget{
+margin-bottom: 10px;
+}
+
+.taskContainer{
+  section{
+    height: 340px;
+  }
+}
+
+.buttonTable{
+  border-radius: 3em;
+  font-size: 10px;
+
+  width: 6%;
+  margin-right: 5px;
+}
+
+@media(max-width: 1200px) {
+  .buttonTable{
+    border-radius: 3em;
+    font-size: 11px;
+  
+    width: 8%;
+    margin-right: 5px;
+  }
+}
+@media(max-width: 992px) {
+  .buttonTable{
+    border-radius: 3em;
+    font-size: 12px;
+  
+    width: 10%;
+    margin-right: 5px;
+  }
+}
+@media(max-width: 768px) {
+  .buttonTable{
+    border-radius: 3em;
+    font-size: 12px;
+  
+    width: 14%;
+    margin-right: 5px;
+  }
+}
+
+@media(max-width: 576px) {
+  .buttonTable{
+    border-radius: 3em;
+    font-size: 12px;
+  
+    width: 30%;
+    margin-right: 5px;
+  }
+}
+
