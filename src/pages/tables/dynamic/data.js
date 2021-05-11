@@ -1,6 +1,7 @@
 export function reactTableData() {
   return [
     {
+      id:1,
       name: 'Victoria Cantrell',
       position: 'Integer Corporation',
       office: 'Croatia',

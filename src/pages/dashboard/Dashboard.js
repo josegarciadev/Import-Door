@@ -560,17 +560,29 @@ class Dashboard extends React.Component {
               <ReactTable
                 data={this.state.reactTable}
                 filterable
+                SubComponent={({original}) => {
+                  return (
+                    <div>
+                      
+                      <h1>Datos</h1>
+                      <p>{original.name}</p>
+                      <p>{original.position}</p>
+                      <p>{original.office}</p>
+                    </div>
+                  )
+                }}
                 columns={[
                   {
-                    Header: 'Arrival Date ',
-                    /*Cell:({name})=>{
+                    accessor: 'id',
+                    expander:true,
+                    
+                    //maxWidth:50
 
-                      return name;
-                      return (
-                      <p><Button color='info'>info</Button> ${accessor`name`}</p>
-                      );
-                    }*/
+                  },
+                  {
+                    Header: 'Arrival Date ',
                     accessor:`name`,
+                    id:'name'
                     
                   },
                   {
