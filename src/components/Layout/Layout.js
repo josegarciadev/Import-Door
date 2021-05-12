@@ -58,12 +58,11 @@ import ChangePasswordFormPage from '../Users/changePassword/ChangePasswordFormPa
 import { SidebarTypes } from '../../reducers/layout';
 import Header from '../Header';
 import Sidebar from '../Sidebar';
-import Helper from '../Helper';
 import { openSidebar, closeSidebar, toggleSidebar } from '../../actions/navigation';
 import s from './Layout.module.scss';
 import { DashboardThemes } from '../../reducers/layout';
 import ProductEdit from '../../pages/management/components/productEdit';
-import BreadcrumbHistory from '../BreadcrumbHistory';
+
 
 class Layout extends React.Component {
   static propTypes = {

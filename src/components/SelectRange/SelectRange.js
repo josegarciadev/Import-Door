@@ -4,9 +4,6 @@ import Helmet from 'react-helmet';
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
-
-import CalendarIcon from '../../images/sidebar/Outline/Calendar';
-import s from './SelectRange.module.scss';
 import { formatDate, parseDate } from 'react-day-picker/moment';
 
 export default class Example extends React.Component {
