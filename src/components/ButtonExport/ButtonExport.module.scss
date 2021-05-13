@@ -1,0 +1,46 @@
+@import '../../styles/app';
+
+.buttonTable{
+    border-radius: 3em;
+    font-size: 10px;
+  
+    width: 6%;
+    margin-right: 5px;
+  }
+@media(max-width: 1200px) {
+  .buttonTable{
+    border-radius: 3em;
+    font-size: 11px;
+  
+    width: 8%;
+    margin-right: 5px;
+  }
+}
+@media(max-width: 992px) {
+  .buttonTable{
+    border-radius: 3em;
+    font-size: 12px;
+  
+    width: 10%;
+    margin-right: 5px;
+  }
+}
+@media(max-width: 768px) {
+  .buttonTable{
+    border-radius: 3em;
+    font-size: 12px;
+  
+    width: 14%;
+    margin-right: 5px;
+  }
+}
+
+@media(max-width: 576px) {
+  .buttonTable{
+    border-radius: 3em;
+    font-size: 12px;
+  
+    width: 30%;
+    margin-right: 5px;
+  }
+}

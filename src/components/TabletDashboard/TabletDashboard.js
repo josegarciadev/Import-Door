@@ -11,6 +11,8 @@ import {
 import ReactTable from 'react-table';
 import { reactTableData, reactBootstrapTableData } from '../../pages/tables/dynamic/data';
 import AccordionTablet from '../Accordiontablet/AccordionTablet';
+import {ButtonCsv} from '../ButtonExport/ButtonExport';
+
 
 // Accordion table
 
@@ -40,10 +42,21 @@ export default class TabletDashboard extends Component {
                       <Row>
                           <Col xs={12}>
                           <div className={`text-right pr-3 pb-1 m-2`}>
-                          <Button className={`${s.buttonTable}`} color="primary">CSV</Button>
+                          <ButtonCsv 
+                          Headers={[
+                            { label: "Nombre", key: "name" },
+                            { label: "Office", key: "office" },
+                            { label: "Ext", key: "ext" },
+                            { label: "Position", key: "position" },
+                            { label: "Salary", key: "salary" },
+                            { label: "Start Date", key: "startDate" },
+                          ]}
+                          Data={[original]}
+                          Filename={`Shipments-Details-${original.name}.csv`}
+                          />
+                          
                           <Button className={`${s.buttonTable}`} color="info">EXCEL</Button>
                           <Button className={`${s.buttonTable}`} color="success">PDF</Button>
-
                           </div>
                           </Col>
                           
