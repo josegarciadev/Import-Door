@@ -11,7 +11,8 @@ import {
 import ReactTable from 'react-table';
 import { reactTableData, reactBootstrapTableData } from '../../pages/tables/dynamic/data';
 import AccordionTablet from '../Accordiontablet/AccordionTablet';
-import {ButtonCsv} from '../ButtonExport/ButtonExport';
+import {ButtonCsv, ButtonExcelDetails} from '../ButtonExport/ButtonExport';
+import ModalExport from '../ModalExport/ModalExport';
 
 
 // Accordion table
@@ -44,7 +45,7 @@ export default class TabletDashboard extends Component {
                           <div className={`text-right pr-3 pb-1 m-2`}>
                           <ButtonCsv 
                           Headers={[
-                            { label: "Nombre", key: "name" },
+                            { label: "Name", key: "name" },
                             { label: "Office", key: "office" },
                             { label: "Ext", key: "ext" },
                             { label: "Position", key: "position" },
@@ -54,9 +55,11 @@ export default class TabletDashboard extends Component {
                           Data={[original]}
                           Filename={`Shipments-Details-${original.name}.csv`}
                           />
-                          
-                          <Button className={`${s.buttonTable}`} color="info">EXCEL</Button>
-                          <Button className={`${s.buttonTable}`} color="success">PDF</Button>
+                          <ButtonExcelDetails 
+                            Data={[original]}
+                            Filename={`Shipments-Details-${original.name}.csv`}
+                          />
+                          <ModalExport/>
                           </div>
                           </Col>
                           
@@ -74,7 +77,6 @@ export default class TabletDashboard extends Component {
                     Header: 'Arrival Date ',
                     accessor:`name`,
                     id:'name'
-                    
                   },
                   {
                     Header: 'Port of Lading ',

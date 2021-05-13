@@ -114,6 +114,7 @@
     "react-dom": "^16.5.2",
     "react-draft-wysiwyg": "1.10.12",
     "react-dropzone": "^6.2.4",
+    "react-export-excel": "^0.5.3",
     "react-google-maps": "^9.4.5",
     "react-helmet": "^6.1.0",
     "react-images": "^0.5.19",
