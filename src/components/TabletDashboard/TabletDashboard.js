@@ -47,10 +47,17 @@ import fetch_bills from '../../actions/DataImportActions';
             <Col xs={12}>
         
             <Widget  collapse close>
-              <ReactTable
+              
+              {this.props.DateTable.data.length >=1 && <ReactTable
                 data={this.props.DateTable.data}
+                pages={this.props.DateTable.page}
                 filterable
-                style={fontSize='2px'}
+                onFilteredChange={(values)=>{
+                  
+                  console.log(values);
+                }}
+                
+                style={{fontSize:'0.8em'}}
                 loading={this.props.DateTable.loading}
                 SubComponent={({original}) => {
                   
@@ -88,45 +95,55 @@ import fetch_bills from '../../actions/DataImportActions';
                   )
                 }}
                 columns={[
+                  
                   {
-                    accessor: 'id',
+                    
                     expander:true,
-                    //maxWidth:50
+                    maxWidth:50
                   },
                   {
-                    Header: 'Arrival Date ',
+                    headerStyle: {fontSize:'1.2em'},
+                    Header: 'Arrival Date',
                     accessor:`actual_arrival_date`,
-                    id:'name'
+                    minWidth:50,
+                    maxWidth:110,
+              
                   },
                   {
-                    Header: 'Port of Lading ',
+                    headerStyle: {fontSize:'1.2em'},
+                    Header: 'Port of Lading',
                     accessor: 'foreign_port_of_lading_name',
                   },
                   {
+                    headerStyle: {fontSize:'1.2em'},
                     Header: 'Supplier Name ',
                     accessor: 'shipper_name',
                   },
                   {
+                    headerStyle: {fontSize:'1.2em'},
                     Header: 'Description',
                     accessor: 'description_text',
                   },
                   {
-                    Header: 'Importer Name ',
+                    headerStyle: {fontSize:'1.2em'},
+                    Header: 'Importer Name',
                     accessor: 'consignee_name',
                   },
                   {
-                    id: 'NotifyName',
-                    Header: 'Notify Name ',
-                    accessor: d => d.notify_party[0].notify_party_name
+                    headerStyle: {fontSize:'1.2em'},
+                    id: 'notify_party',
+                    Header: 'Notify Name',
+                    accessor: row => row.notify_party ? row.notify_party[0].notify_party_name :''
                   },
                   {
+                    headerStyle: {fontSize:'1.2em'},
                     Header: 'Port of Unlading',
                     accessor: 'port_of_unlading_name',
                   },
                 ]}
                 defaultPageSize={this.props.DateTable.page_number_records}
                 className="-striped -highlight"
-              />
+              />}
             </Widget>
             </Col>
         )

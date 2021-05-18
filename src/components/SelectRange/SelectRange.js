@@ -38,20 +38,21 @@ class SelectRange extends React.Component {
     this.props.fetch_bills({
       page:this.props.DateTable.page,
       page_number_records:this.props.DateTable.page_number_records,
-      date_init:this.props.DateTable.date_init,
+      date_init:date.format("YYYY-MM-DD"),
       date_end:this.props.DateTable.date_end,
     })
   }
 
   handleToChange(to) {
     let date = moment(to);
+
     this.props.date_endAction(date.format("YYYY-MM-DD"));
 
     this.props.fetch_bills({
       page:this.props.DateTable.page,
       page_number_records:this.props.DateTable.page_number_records,
       date_init:this.props.DateTable.date_init,
-      date_end:this.props.DateTable.date_end,
+      date_end:date.format("YYYY-MM-DD")
     })
   }
 
