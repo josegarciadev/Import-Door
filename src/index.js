@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk'
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
+import {composeWithDevTools} from 'redux-devtools-extension'
 
 import App from './components/App';
 import config from './config';
@@ -28,18 +29,19 @@ if (token) {
 }
 
 export const store = createStore(
-  createRootReducer(history),
+  createRootReducer(history),composeWithDevTools(
   compose(
     applyMiddleware(
       routerMiddleware(history),
       ReduxThunk
     ),
-  )
+  ))
 );
 
 store.dispatch(doInit());
 
 ReactDOM.render(
+  
     <Provider store={store}>
         <App />
     </Provider>,

@@ -13,12 +13,14 @@ import { reactTableData, reactBootstrapTableData } from '../../pages/tables/dyna
 import AccordionTablet from '../Accordiontablet/AccordionTablet';
 import {ButtonCsv, ButtonExcelDetails} from '../ButtonExport/ButtonExport';
 import ModalExport from '../ModalExport/ModalExport';
+import {connect} from 'react-redux'
+import fetch_bills from '../../actions/DataImportActions';
 
 
 // Accordion table
 
 
-export default class TabletDashboard extends Component {
+ class TabletDashboard extends Component {
     constructor(props){
         super(props); 
         this.state={
@@ -26,14 +28,32 @@ export default class TabletDashboard extends Component {
             reactBootstrapTable: reactBootstrapTableData(),
         }
     }
+   
+    componentDidMount() {
+      
+      
+      this.props.fetch_bills({
+        page:this.props.DateTable.page,
+        page_number_records:this.props.DateTable.page_number_records,
+        date_init:this.props.DateTable.date_init,
+        date_end:this.props.DateTable.date_end,
+      })
+
+    }
+   
     render() {
+     
         return (
             <Col xs={12}>
+        
             <Widget  collapse close>
               <ReactTable
-                data={this.state.reactTable}
+                data={this.props.DateTable.data}
                 filterable
+                style={fontSize='2px'}
+                loading={this.props.DateTable.loading}
                 SubComponent={({original}) => {
+                  
                   return (
                     <div>
                       <h2 className='p-3'>Shipments Details </h2>
@@ -75,35 +95,36 @@ export default class TabletDashboard extends Component {
                   },
                   {
                     Header: 'Arrival Date ',
-                    accessor:`name`,
+                    accessor:`actual_arrival_date`,
                     id:'name'
                   },
                   {
                     Header: 'Port of Lading ',
-                    accessor: 'position',
+                    accessor: 'foreign_port_of_lading_name',
                   },
                   {
                     Header: 'Supplier Name ',
-                    accessor: 'office',
+                    accessor: 'shipper_name',
                   },
                   {
                     Header: 'Description',
-                    accessor: 'ext',
+                    accessor: 'description_text',
                   },
                   {
                     Header: 'Importer Name ',
-                    accessor: 'startDate',
+                    accessor: 'consignee_name',
                   },
                   {
+                    id: 'NotifyName',
                     Header: 'Notify Name ',
-                    accessor: 'salary',
+                    accessor: d => d.notify_party[0].notify_party_name
                   },
                   {
                     Header: 'Port of Unlading',
-                    accessor: 'salary',
+                    accessor: 'port_of_unlading_name',
                   },
                 ]}
-                defaultPageSize={10}
+                defaultPageSize={this.props.DateTable.page_number_records}
                 className="-striped -highlight"
               />
             </Widget>
@@ -111,3 +132,13 @@ export default class TabletDashboard extends Component {
         )
     }
 }
+
+const mapStateToProps= (state)=>{
+  return{
+      DateTable:state.DataTable
+  }
+}
+const mapsDispatchToProps={
+  fetch_bills
+}
+export default connect(mapStateToProps,mapsDispatchToProps)(TabletDashboard)

@@ -5,8 +5,11 @@ import Helmet from 'react-helmet';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import { formatDate, parseDate } from 'react-day-picker/moment';
+import {connect} from 'react-redux'
+import { date_endAction,date_initAction, fetch_bills } from '../../actions/DataImportActions';
 
-export default class Example extends React.Component {
+
+class SelectRange extends React.Component {
   constructor(props) {
     super(props);
     this.handleFromChange = this.handleFromChange.bind(this);
@@ -29,11 +32,27 @@ export default class Example extends React.Component {
 
   handleFromChange(from) {
     // Change the from date and focus the "to" input field
-    this.setState({ from });
+    let date = moment(from);
+    this.props.date_initAction(date.format("YYYY-MM-DD"));
+
+    this.props.fetch_bills({
+      page:this.props.DateTable.page,
+      page_number_records:this.props.DateTable.page_number_records,
+      date_init:this.props.DateTable.date_init,
+      date_end:this.props.DateTable.date_end,
+    })
   }
 
   handleToChange(to) {
-    this.setState({ to }, this.showFromMonth);
+    let date = moment(to);
+    this.props.date_endAction(date.format("YYYY-MM-DD"));
+
+    this.props.fetch_bills({
+      page:this.props.DateTable.page,
+      page_number_records:this.props.DateTable.page_number_records,
+      date_init:this.props.DateTable.date_init,
+      date_end:this.props.DateTable.date_end,
+    })
   }
 
   render() {
@@ -42,7 +61,7 @@ export default class Example extends React.Component {
     return (
       <div className="InputFromTo">
         <DayPickerInput
-          value={from}
+          value={this.props.DateTable.date_init}
           inputProps={{ style: { width: 100,border:'none',background:'rgba(47, 0, 255, 0.02)' } }}
           placeholder="From"
           format="LL"
@@ -63,7 +82,7 @@ export default class Example extends React.Component {
           <DayPickerInput
             inputProps={{ style: { width: 100,border:'none',background:'rgba(47, 0, 255, 0.04)' } }}
             ref={el => (this.to = el)}
-            value={to}
+            value={this.props.DateTable.date_end}
             placeholder="To"
             format="LL"
             formatDate={formatDate}
@@ -119,3 +138,16 @@ export default class Example extends React.Component {
     );
   }
 }
+
+const mapStateToProps= (state)=>{
+  return{
+    DateTable:state.DataTable
+  }
+}
+const mapsDispatchToProps={
+  date_initAction,
+  date_endAction,
+  fetch_bills
+}
+
+export default connect(mapStateToProps,mapsDispatchToProps)(SelectRange)
