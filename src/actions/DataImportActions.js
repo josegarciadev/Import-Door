@@ -38,13 +38,20 @@ export const fetch_bills_errorAction =(error)=>{
     }
 }
 
-export  const fetch_bills=(params)=>{
+export  const fetch_bills=(value,json)=>{
+    const params = new URLSearchParams(value)
+    const url =`http://localhost:8000/auth/v1/bills?` + params;
     return(dispatch)=>{
         dispatch(fetch_bills_requestAction());
         
-        axios.get(`http://localhost:8000/auth/bills`,{params})
+        axios.post(url,json)
             .then(res=>{
-                dispatch(fetch_bills_successAction(res.data))
+                if(res.data.length>=1){
+                    dispatch(fetch_bills_successAction(res.data))
+                }else{
+                    dispatch(fetch_bills_errorAction('no se encuentra'));
+                }
+                
             })
             .catch(error=>{
                 dispatch(fetch_bills_errorAction(error));
