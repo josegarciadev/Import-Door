@@ -8,10 +8,7 @@ import {
  import s from './TopCard.module.scss' 
 
 export default class TopCard extends Component {
-    constructor(props){
-        super(props); 
-    }
-
+ 
     render() {
         return (
             <Col xs={12} xl={3} sm={6} md={6} style={{padding: '5px'}}>

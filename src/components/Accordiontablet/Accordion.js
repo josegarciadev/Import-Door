@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Collapse,Row,Col} from 'reactstrap';
 
-import s from './AccordionTablet.module.scss';
 import {connect} from 'react-redux'
  class Accordion extends Component {
  
@@ -315,7 +314,7 @@ import {connect} from 'react-redux'
             </Row>
             <hr className='pb-1'/>
             {
-            notify_party.length ==0 && <div>
+            notify_party.length ===0 && <div>
                 
                 <Row className={`m-1`}>
                 <Col sm={12} className='text-light'>

@@ -8,14 +8,11 @@ import {
  import s from './ResultCard.module.scss' 
 export default class ResultCard extends Component {
 
-    constructor(props){
-        super(props);
-        
-    }
+
 
     render() {
         return (
-            <Col xl={3} md={6} xs={12} style={{padding: '5px'}} className={`${s.col}`}>
+            <Col xl={3} md={6} sm={6} xs={12} style={{padding: '5px'}} className={`${s.col}`}>
             <Widget className={s.widget}>
               <div className="clearfix">
                 <Row className="flex-nowrap">

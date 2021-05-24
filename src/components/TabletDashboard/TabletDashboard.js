@@ -2,24 +2,15 @@ import React, { Component } from 'react'
 import Widget from '../../components/Widget';
 import {
     Col,
-    Button,
-    Row
   } from 'reactstrap';
 
  import  './TabletDashboard.module.scss' 
 // Tabla
 import ReactTable from 'react-table';
 import AccordionTablet from '../Accordiontablet/AccordionTablet';
-import {ButtonCsv, ButtonExcelDetails} from '../ButtonExport/ButtonExport';
 import ModalExport from '../ModalExport/ModalExport';
 import {connect} from 'react-redux'
 import fetch_bills from '../../actions/DataImportActions';
-
-
-
-
-
-// Accordion table
 
 
  class TabletDashboard extends Component {
