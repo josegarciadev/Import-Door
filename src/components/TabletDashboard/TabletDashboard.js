@@ -17,6 +17,8 @@ import fetch_bills from '../../actions/DataImportActions';
 
 
 
+
+
 // Accordion table
 
 
@@ -45,23 +47,12 @@ import fetch_bills from '../../actions/DataImportActions';
       })
 
     }
-   
-    filterParams(){
-      const data=  this.state.params.map(value=>{
-        if(value.length>=1){
-          return console.log('mayores a 1: '+ value);
-        }else{
-          return console.log('menores a 1: '+ value);
-        } 
-      })
-
-      return console.log(data)
-    }
+  
 
     filterKeypress(e){
 
       if(e.target.value.trim().length > 0){
-        console.log('No vacio'+e.target.value)
+
       this.setState({
         params: {
           ...this.state.params,
@@ -69,18 +60,32 @@ import fetch_bills from '../../actions/DataImportActions';
         }
       })
     }else{
-      console.log('vacio'+e.target.value)
       e.target.value =''
       delete this.state.params[e.target.id]
     }
 
       if(e.key === 'Enter' || e.keyCode === 13){     
-        console.log(this.state.params)  
+
         this.props.fetch_bills(this.state.params)
 
       }
     }
 
+    /* async getBill(master,house){
+      
+      if(typeof house === 'undefined'){
+        return await axios.get(`http://localhost:8000/auth/v1/bill?master_bol_number=${master}`).then(res=>{
+
+          return res.data
+        })
+      } else {
+          return await axios.get(`http://localhost:8000/auth/v1/bill?master_bol_number=${master}&house_bol_number=${house}`).then(res=>{
+       
+            return res.data
+          })
+      }
+
+    } */
     render() {
      
         return (
@@ -92,7 +97,6 @@ import fetch_bills from '../../actions/DataImportActions';
                 data={this.props.DateTable.data}
                 pages={this.props.DateTable.page}
                 filterable
-  
                 onSortedChange={(values)=>{
                   values.map(value=>{
 
@@ -116,37 +120,25 @@ import fetch_bills from '../../actions/DataImportActions';
                 style={{fontSize:'0.8em'}}
                 loading={this.props.DateTable.loading}
                 SubComponent={({original}) => {
+                  const master_bol=original.master_bol_number;
+                  const house_bol=original.house_bol_number;
+                  
+                  /* const data =this.getBill(master_bol,house_bol).then(res=>{
+                    return res
+                  })
+                 
+                  console.log(data); */
                   
                   return (
                     <div>
-                      <h2 className='p-3'>Shipments Details </h2>
+                      <h3 className='p-3'>
+                        Shipments Details 
+                       <ModalExport master={master_bol} house={house_bol} />
+                        </h3>
                       <hr></hr>
-                      <p className='text-light p-2'>Master Bill of Landing Number: <strong >"Prueba"</strong> &nbsp;&nbsp;&nbsp; House Bill of Landing Number: <strong>"Probando 2"</strong></p>
+                      <p className='text-light p-2'>Master Bill of Landing Number: <strong >{original.master_bol_number}</strong> &nbsp;&nbsp;&nbsp; House Bill of Landing Number: <strong>{original.house_bol_number}</strong></p>
                       <AccordionTablet />
-                      <Row>
-                          <Col xs={12}>
-                          <div className={`text-right pr-3 pb-1 m-2`}>
-                          <ButtonCsv 
-                          Headers={[
-                            { label: "Name", key: "name" },
-                            { label: "Office", key: "office" },
-                            { label: "Ext", key: "ext" },
-                            { label: "Position", key: "position" },
-                            { label: "Salary", key: "salary" },
-                            { label: "Start Date", key: "startDate" },
-                          ]}
-                          Data={[original]}
-                          Filename={`Shipments-Details-${original.name}.csv`}
-                          />
-                          <ButtonExcelDetails 
-                            Data={[original]}
-                            Filename={`Shipments-Details-${original.name}.csv`}
-                          />
-                          <ModalExport/>
-                          </div>
-                          </Col>
-                          
-                      </Row>
+                      
                     </div>
                   )
                 }}
@@ -187,7 +179,7 @@ import fetch_bills from '../../actions/DataImportActions';
                   },
                   {
                     headerStyle: {fontSize:'1.2em'},
-                    Header: 'Port of Lading',
+                    Header: 'Country of Origin',
                     width: 150,
                     accessor: 'foreign_port_of_lading_name',
                     Filter: cellInfo => ( // Used to render the filter UI of a filter-enabled column
@@ -258,7 +250,7 @@ import fetch_bills from '../../actions/DataImportActions';
                   },
                   {
                     headerStyle: {fontSize:'1.2em'},
-                    Header: 'Port of Unlading',
+                    Header: 'Port of Arrival',
                     accessor: 'port_of_unlading_name',
                     width: 150,
                     Filter: cellInfo => ( 
@@ -286,6 +278,7 @@ const mapStateToProps= (state)=>{
   }
 }
 const mapsDispatchToProps={
-  fetch_bills
+  fetch_bills,
+
 }
 export default connect(mapStateToProps,mapsDispatchToProps)(TabletDashboard)

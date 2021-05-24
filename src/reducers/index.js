@@ -9,6 +9,7 @@ import chat from './chat';
 import users from './usersReducers';
 import DataTable from './DataImport';
 import { connectRouter } from 'connected-react-router';
+import ShipmentsDetails from './ShipmentsDetailsReducer';
 
 
 
@@ -17,6 +18,7 @@ export default (history) =>
     router: connectRouter(history),
     alerts,
     DataTable,
+    ShipmentsDetails,
     auth,
     navigation,
     layout,

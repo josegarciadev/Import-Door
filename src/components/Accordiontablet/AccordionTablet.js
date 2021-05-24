@@ -32,7 +32,7 @@ class AccordionTablet extends Component {
               <div className={`${s.textBlack} mb-0`}>
                 {/* eslint-disable-next-line */}
                 <a className="accordion-toggle" role="button">
-                <b>Primary Details</b>
+                 <h4><b>Containter & Cargo Details</b></h4>
                   <i className={`fa fa-angle-down ${this.state.accordion[0] ? 'expanded' : ''}`} />
                 </a>
               </div>
@@ -126,7 +126,7 @@ class AccordionTablet extends Component {
               <div className={`${s.textBlack} mb-0`}>
                 {/* eslint-disable-next-line */}
                 <a className="accordion-toggle" role="button">
-                <b>Secondary Details</b>
+                <h4><b>Notify Party Details</b></h4>
                   <i className={`fa fa-angle-down ${this.state.accordion[1] ? 'expanded' : ''}`} />
                 </a>
               </div>
@@ -136,59 +136,9 @@ class AccordionTablet extends Component {
               </p>
             </Collapse>
           </div>
-          <div className="card panel mb-xs">
-            { /* eslint-disable */ }
-            <div
-              className="card-header panel-header bg-light" role="button"
-              onClick={() => { this.toggleAccordion(2); }}
-            >
-              { /* eslint-enable */ }
-              <div className={`${s.textBlack} mb-0`}>
-                {/* eslint-disable-next-line */}
-                <a className="accordion-toggle" role="button">
-                <b>Containers & Cargo Details</b>
-                  <i className={`fa fa-angle-down ${this.state.accordion[2] ? 'expanded' : ''}`} />
-                </a>
-              </div>
-            </div>
-            <Collapse className="panel-body" isOpen={this.state.accordion[2]}>
-              <p><span className="fw-semi-bold">Light Blue</span> - is a next generation admin template based
-                on the latest Metro design. There are few reasons we want to tell you, why we have created it:
-                We didn't like the darkness of most of admin templates, so we created this light one.
-                We didn't like the high contrast of most of admin templates, so we created this unobtrusive one.
-                We searched for a solution of how to make widgets look like real widgets, so we decided that
-                deep background - is what makes widgets look real.
-              </p>
-              <p className="no-margin text-muted"><em>- Some One</em></p>
-            </Collapse>
-          </div>
+         
 
-          <div className="card panel mb-lg">
-            { /* eslint-disable */ }
-            <div
-              className="card-header panel-header bg-light" role="button"
-              onClick={() => { this.toggleAccordion(3); }}
-            >
-              { /* eslint-enable */ }
-              <div className={`${s.textBlack} mb-0`}>
-                {/* eslint-disable-next-line */}
-                <a className="accordion-toggle" role="button">
-                <b>Notify Party Details</b> 
-                  <i className={`fa fa-angle-down ${this.state.accordion[3] ? 'expanded' : ''}`} />
-                </a>
-              </div>
-            </div>
-            <Collapse className="panel-body pr-2" isOpen={this.state.accordion[3]}>
-              <p><span className="fw-semi-bold">Light Blue</span> - is a next generation admin template based
-                on the latest Metro design. There are few reasons we want to tell you, why we have created it:
-                We didn't like the darkness of most of admin templates, so we created this light one.
-                We didn't like the high contrast of most of admin templates, so we created this unobtrusive one.
-                We searched for a solution of how to make widgets look like real widgets, so we decided that
-                deep background - is what makes widgets look real.
-              </p>
-              <p className="no-margin text-muted"><em>- Some One</em></p>
-            </Collapse>
-          </div>
+         
       </>
     );
   }

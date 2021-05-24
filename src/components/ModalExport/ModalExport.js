@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import {
-    Row,
-    Col,
     Button,
     Modal,
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Container,
   } from 'reactstrap';
-
-export default class ModalExport extends Component {
+  import {connect} from 'react-redux'
+import get_bill from '../../actions/ShipmentDetailsAction';
+import Accordion from '../Accordiontablet/Accordion';
+class ModalExport extends Component {
     state = {
         demo: false,
         verticallyCentered: false,
@@ -19,7 +18,22 @@ export default class ModalExport extends Component {
         launch: false,
       }
       toggle(id) {
-          
+        /* if(typeof this.props.house === 'undefined'){
+         
+          this.props.get_bill({
+            master_bol_number:this.props.master
+          }) 
+        } else {
+          this.props.get_bill({
+            master_bol_number:this.props.master,
+            house_bol_number:this.props.house
+          }) 
+           
+        } */
+        this.props.get_bill({
+          master_bol_number:this.props.master,
+          house_bol_number:this.props.house
+        }) 
         this.setState(prevState => ({
           [id]: !prevState[id],
           
@@ -30,12 +44,15 @@ export default class ModalExport extends Component {
         const {demo} = this.state;
         return (
             <>
-                <Button className="mr-sm" color="primary" onClick={() => this.toggle('demo')}>Demo</Button>
+                <span className="glyphicon glyphicon-search" style={{cursor:'pointer',paddingLeft:'5px'}} onClick={() => this.toggle('demo')}/>
                 
-                <Modal isOpen={demo} toggle={() => this.toggle('demo')}>
-                <ModalHeader toggle={() => this.toggle('demo')}>Modal title</ModalHeader>
+                <Modal size="lg" isOpen={demo} toggle={() => this.toggle('demo')}>
+                <ModalHeader toggle={() => this.toggle('demo')} className='fw-semi-bold'>
+                  Shipments Details
+                  </ModalHeader>
                 <ModalBody className="bg-white">
-                    sasasadsads
+                
+                <Accordion/>
                 </ModalBody>
                 <ModalFooter>
                     <Button color="default" onClick={() => this.toggle('demo')}>Close</Button>
@@ -47,3 +64,15 @@ export default class ModalExport extends Component {
         )
     }
 }
+
+const mapStateToProps= (state)=>{
+  return{
+      ShipmentsDetails:state.ShipmentsDetails
+  }
+}
+const mapsDispatchToProps={
+  get_bill
+
+}
+
+export default connect(mapStateToProps,mapsDispatchToProps)(ModalExport)
