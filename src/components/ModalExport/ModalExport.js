@@ -18,7 +18,7 @@ class ModalExport extends Component {
         launch: false,
       }
       toggle(id) {
-        /* if(typeof this.props.house === 'undefined'){
+        if(typeof this.props.house === 'undefined'){
          
           this.props.get_bill({
             master_bol_number:this.props.master
@@ -29,11 +29,8 @@ class ModalExport extends Component {
             house_bol_number:this.props.house
           }) 
            
-        } */
-        this.props.get_bill({
-          master_bol_number:this.props.master,
-          house_bol_number:this.props.house
-        }) 
+        } 
+        
         this.setState(prevState => ({
           [id]: !prevState[id],
           

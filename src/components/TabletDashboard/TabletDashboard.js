@@ -16,6 +16,7 @@ import fetch_bills from '../../actions/DataImportActions';
  class TabletDashboard extends Component {
     constructor(props){
         super(props); 
+      
         this.state={
           params:{
             page:this.props.DateTable.page,
@@ -46,7 +47,10 @@ import fetch_bills from '../../actions/DataImportActions';
 
       this.setState({
         params: {
-          ...this.state.params,
+          page:this.props.DateTable.page,
+          page_number_records:this.props.DateTable.page_number_records,
+          date_init:this.props.DateTable.date_init,
+          date_end:this.props.DateTable.date_end,
           [e.target.id]:e.target.value
         }
       })
@@ -62,32 +66,46 @@ import fetch_bills from '../../actions/DataImportActions';
       }
     }
 
-    /* async getBill(master,house){
-      
-      if(typeof house === 'undefined'){
-        return await axios.get(`http://localhost:8000/auth/v1/bill?master_bol_number=${master}`).then(res=>{
-
-          return res.data
-        })
-      } else {
-          return await axios.get(`http://localhost:8000/auth/v1/bill?master_bol_number=${master}&house_bol_number=${house}`).then(res=>{
-       
-            return res.data
-          })
-      }
-
-    } */
     render() {
-     
+          const count=this.props.DateTable.data.find(element => element.count);
+          const data = this.props.DateTable.data.filter(value => !value.count);
+          if(typeof count!= 'undefined'){
+            this.props.DateTable.count =Math.round(count.count/this.props.DateTable.page_number_records);
+              
+            } 
         return (
             <Col xs={12}>
         
             <Widget>
               
                <ReactTable
-                data={this.props.DateTable.data}
-                pages={this.props.DateTable.page}
+                data={data}
+                pages={this.props.DateTable.count}
+                page={this.props.DateTable.page}
                 filterable
+                manual // informs React Table that you'll be handling sorting and pagination server-side
+                
+
+                onPageChange={(value)=>{
+                  this.props.DateTable.page=value;
+
+                  this.props.fetch_bills({
+                    page:this.props.DateTable.page,
+                    page_number_records:this.props.DateTable.page_number_records,
+                    date_init:this.props.DateTable.date_init,
+                    date_end:this.props.DateTable.date_end,
+                  })
+                }}
+                onPageSizeChange={(value)=>{
+                  this.props.DateTable.page_number_records=value;
+
+                  this.props.fetch_bills({
+                    page:this.props.DateTable.page,
+                    page_number_records:this.props.DateTable.page_number_records,
+                    date_init:this.props.DateTable.date_init,
+                    date_end:this.props.DateTable.date_end,
+                  })
+                }}
                 onSortedChange={(values)=>{
                   values.map(value=>{
 

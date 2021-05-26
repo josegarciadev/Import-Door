@@ -23,11 +23,7 @@ import {connect} from 'react-redux'
     });
   }
 
-  componentDidUpdate(){
-    if (this.props.ShipmentsDetails.details.length>=1) {
-      this.setState({ containers: [this.props.ShipmentsDetails.details.container] })
-    }
-  }
+
   render() {
       const data = this.props.ShipmentsDetails.details;
       const {containers=[], notify_party=[]} = data;

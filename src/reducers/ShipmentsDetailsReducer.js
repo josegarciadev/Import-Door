@@ -19,10 +19,9 @@ const ShipmentsDetails=(state=initialState,action)=>{
 
         case SHIPMENTDETAILS_SUCCESS: 
             return{
-                ...state,
                 loading:false,
                 details: action.payload,
-                error:''
+                error:'',
             }
         case SHIPMENTDETAILS_ERROR: 
             return{

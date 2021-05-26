@@ -7,7 +7,8 @@ const initialState={
     date_init:'2020-01-01',
     date_end:'2020-01-31',
     page_number_records:10,
-    page:0
+    page:0,
+    count:0
 }
 
 const DataTable=(state=initialState,action)=>{

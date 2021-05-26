@@ -40,7 +40,7 @@ export const fetch_bills_errorAction =(error)=>{
 
 export  const fetch_bills=(value,json)=>{
     const params = new URLSearchParams(value)
-    const url =`http://localhost:8000/auth/v1/bills?` + params;
+    const url =`${process.env.REACT_APP_API_URL}/auth/v1/bills?` + params;
     return(dispatch)=>{
         dispatch(fetch_bills_requestAction());
         

@@ -32,11 +32,11 @@ class SelectRange extends React.Component {
 
   handleFromChange(from) {
     // Change the from date and focus the "to" input field
+    this.props.DateTable.page=0;
     let date = moment(from);
     this.props.date_initAction(date.format("YYYY-MM-DD"));
-
     this.props.fetch_bills({
-      page:this.props.DateTable.page,
+      page:0,
       page_number_records:this.props.DateTable.page_number_records,
       date_init:date.format("YYYY-MM-DD"),
       date_end:this.props.DateTable.date_end,
