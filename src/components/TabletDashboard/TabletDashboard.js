@@ -83,9 +83,10 @@ import fetch_bills from '../../actions/DataImportActions';
                 pages={this.props.DateTable.count}
                 page={this.props.DateTable.page}
                 filterable
-                manual // informs React Table that you'll be handling sorting and pagination server-side
-                
-
+                manual 
+                onExpandedChange={(newExpanded, index, event) => {
+                  console.log(newExpanded, event)
+                }}
                 onPageChange={(value)=>{
                   this.props.DateTable.page=value;
 
