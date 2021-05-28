@@ -30,10 +30,10 @@ import {connect} from 'react-redux'
     return (
       <>
       <Row>
-        <Col><p className='text-light p-2'>Master Bill of Landing Number: <strong >{data.master_bol_number}</strong></p>
+        <Col><p className='text-light'>Master Bill of Landing Number: <strong >{data.master_bol_number}</strong></p>
         </Col>
         <Col>
-        <p>House Bill of Landing Number: <strong>{data.house_bol_number}</strong></p>
+        <p className='text-light'>House Bill of Landing Number: <strong>{data.house_bol_number}</strong></p>
         </Col>
       </Row>
 
@@ -67,7 +67,9 @@ import {connect} from 'react-redux'
                   Product Keywords <i className="fa fa-exclamation-circle text-light" />
                 </Col>
                 <Col sm={8} >
-                  <b>NAILS</b>
+                {
+                    containers.length >=1 && containers[0].loads[0].description_text
+                  }
                 </Col>
               </Row>
               <Row className={`m-1`}>
@@ -85,7 +87,7 @@ import {connect} from 'react-redux'
                   Quantity <i className="fa fa-exclamation-circle text-light" />
                 </Col>
                 <Col sm={8} >
-                  <b>1071 Carton</b>
+                  <b>{data.manifest_quantity} {data.manifest_unit}</b>
                 </Col>
               </Row>
               <Row className={`m-1`}>

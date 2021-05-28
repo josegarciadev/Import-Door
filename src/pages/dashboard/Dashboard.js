@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Row,
   Col,
-  Button,
 } from 'reactstrap';
 
 import Widget from '../../components/Widget';
@@ -23,6 +22,7 @@ import {chartData} from '../charts/mock';
 import HighchartsReact from 'highcharts-react-official'
 import s from './Dashboard.module.scss';
 import { receiveDataRequest } from '../../actions/analytics';
+
 
 
 
@@ -283,20 +283,10 @@ class Dashboard extends React.Component {
          />
        </Row>
      
-        <Row>
-          <Col xs={12}>
-          <div className={`text-right pr-3 pb-1`}>
-          <Button className={`${s.buttonTable}`} color="primary">CSV</Button>
-          <Button className={`${s.buttonTable}`} color="info">EXCEL</Button>
-          <Button className={`${s.buttonTable}`} color="success">PDF</Button>
-
-          </div>
-          </Col>
-          
-          </Row>
-         <Row>
+       
+         
             <TabletDashboard />
-         </Row>
+         
 
       </div>
     );

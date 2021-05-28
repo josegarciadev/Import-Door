@@ -5,6 +5,7 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
+    Badge
   } from 'reactstrap';
   import {connect} from 'react-redux'
 import get_bill from '../../actions/ShipmentDetailsAction';
@@ -41,7 +42,10 @@ class ModalExport extends Component {
         const {demo} = this.state;
         return (
             <>
-                <span className="glyphicon glyphicon-search" style={{cursor:'pointer',paddingLeft:'5px'}} onClick={() => this.toggle('demo')}/>
+              <Badge onClick={() => this.toggle('demo')} color={'info'} style={{borderRadius:'1em',fontSize:'0.8em',margin:'1px'}}>
+                view
+              </Badge>
+                {/* <span className="glyphicon glyphicon-search" style={{cursor:'pointer',paddingLeft:'5px'}} onClick={() => this.toggle('demo')}/> */}
                 
                 <Modal size="lg" isOpen={demo} toggle={() => this.toggle('demo')}>
                 <ModalHeader toggle={() => this.toggle('demo')} className='fw-semi-bold'>
