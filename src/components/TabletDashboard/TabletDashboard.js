@@ -3,13 +3,11 @@ import Widget from '../../components/Widget';
 import {
     Col,
     Row,
-    Badge
   } from 'reactstrap';
 
  import  './TabletDashboard.module.scss' 
 // Tabla
 import ReactTable from 'react-table';
-import AccordionTablet from '../Accordiontablet/AccordionTablet';
 import ModalExport from '../ModalExport/ModalExport';
 import {connect} from 'react-redux'
 import fetch_bills from '../../actions/DataImportActions';
@@ -71,12 +69,9 @@ import ButtonExport from '../ButtonExport/ButtonExport';
 
  
     render() {
-          const count=this.props.DateTable.data.find(element => element.count);
+          const count=1000;
           const data = this.props.DateTable.data.filter(value => !value.count);
-          if(typeof count!== 'undefined'){
-            this.props.DateTable.count =Math.round(count.count/this.props.DateTable.page_number_records);
-              
-            } 
+       
         return (
           <>
            <Row>
@@ -94,7 +89,7 @@ import ButtonExport from '../ButtonExport/ButtonExport';
             
             <ReactTable
               data={data}
-              pages={this.props.DateTable.count}
+              pages={count}
               page={this.props.DateTable.page}
               filterable
               manual 

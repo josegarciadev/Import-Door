@@ -13,8 +13,6 @@ export default class ButtonExport extends Component {
         const info={...data,format}
         const params = new URLSearchParams(info)
         const url =`${process.env.REACT_APP_API_URL}/auth/v1/bills/export?` + params;
-        
-        console.log('params', info)
         return window.open(url, '_blank');
     }
     

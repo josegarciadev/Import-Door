@@ -37,6 +37,29 @@ class ModalExport extends Component {
           
         }));
       }
+    handleExportPdf(master,house){
+     
+      if(typeof this.props.house === 'undefined'){
+        const info ={
+          master_bol_number: master,
+          format_export:'pdf'
+        }
+        const params = new URLSearchParams(info)
+        const url =`${process.env.REACT_APP_API_URL}/auth/v1/bill?` + params;
+        return window.open(url, '_blank');
+      } else {
+        const info ={
+          master_bol_number: master,
+          house_bol_number:house,
+          format_export:'pdf'
+        }
+        const params = new URLSearchParams(info)
+        const url =`${process.env.REACT_APP_API_URL}/auth/v1/bill?` + params;
+        return window.open(url, '_blank');
+        
+      }
+        
+    }
 
     render() {
         const {demo} = this.state;
@@ -56,8 +79,8 @@ class ModalExport extends Component {
                 <Accordion/>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="default" onClick={() => this.toggle('demo')}>Close</Button>
-                    <Button color="primary">Save changes</Button>
+                    <Button color="primary" onClick={() => this.handleExportPdf(this.props.master,this.props.house)}>PDF</Button>
+                    
                 </ModalFooter>
                 </Modal>
                 
