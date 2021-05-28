@@ -9,7 +9,8 @@ import {connect} from 'react-redux'
     super(props); 
     this.state={
       accordion: [false, false, false,false],
-      containers:[]
+      containers:[],
+      notify_party:[]
     }
   
   }
@@ -23,10 +24,20 @@ import {connect} from 'react-redux'
     });
   }
 
+  handleExist(data){
+    if(data){
+
+      return data
+    }else{
+      return []
+    }
+  }
 
   render() {
       const data = this.props.ShipmentsDetails.details;
-      const {containers=[], notify_party=[]} = data;
+      const containers= this.handleExist(data.containers)
+      const notify_party=this.handleExist(data.notify_party)
+
     return (
       <>
       <Row>
