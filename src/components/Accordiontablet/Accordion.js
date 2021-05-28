@@ -78,9 +78,7 @@ import {connect} from 'react-redux'
                   Product Keywords <i className="fa fa-exclamation-circle text-light" />
                 </Col>
                 <Col sm={8} >
-                {
-                    containers.length >=1 && containers[0].loads[0].description_text
-                  }
+                
                 </Col>
               </Row>
               <Row className={`m-1`}>
@@ -88,9 +86,7 @@ import {connect} from 'react-redux'
                   Product Descriptions <i className="fa fa-exclamation-circle text-light" />
                 </Col>
                 <Col sm={8} >
-                  {
-                    containers.length >=1 && containers[0].loads[0].description_text
-                  }
+                  
                 </Col>
               </Row>
               <Row className={`m-1`}>
