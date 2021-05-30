@@ -238,14 +238,12 @@ import ButtonExport from '../ButtonExport/ButtonExport';
                 },
                 {
                   headerStyle: {fontSize:'1.2em'},
-                  id: 'notify_party',
-                  Header: 'Notify Name',
                   width: 150,
-                  accessor: row => row.notify_party_name !== null ? row.notify_party_name :'',
+                  accessor: 'notify_party_name',
                   Filter: cellInfo => ( 
                     <input 
                     onKeyUp ={event => this.filterKeypress(event)}
-                    id='notify_party'
+                    id='notify_party_name'
                     style={{width:'100%'}}
                     />
                     
